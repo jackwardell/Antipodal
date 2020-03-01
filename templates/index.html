@@ -3,50 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">#}
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.2/dist/latest/bootstrap-autocomplete.min.js"></script>
+
 </head>
 
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">{{ config.name }}</a>
-        {#        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">#}
-        {#            <span class="navbar-toggler-icon"></span>#}
-        {#        </button>#}
-        {#        <div class="collapse navbar-collapse" id="navbarResponsive">#}
-        {#            <ul class="navbar-nav ml-auto">#}
-        {#                <li class="nav-item active">#}
-        {#                    <a class="nav-link" href="#">Home#}
-        {#                        <span class="sr-only">(current)</span>#}
-        {#                    </a>#}
-        {#                </li>#}
-        {#                <li class="nav-item">#}
-        {#                    <a class="nav-link" href="#">About</a>#}
-        {#                </li>#}
-        {#                <li class="nav-item">#}
-        {#                    <a class="nav-link" href="#">Services</a>#}
-        {#                </li>#}
-        {#                <li class="nav-item">#}
-        {#                    <a class="nav-link" href="#">Contact</a>#}
-        {#                </li>#}
-        {#            </ul>#}
-        {#        </div>#}
+        <a class="navbar-brand" href="{{ url_for('hello_world') }}">{{ config.name }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
 <!-- Header -->
-<header class="bg-info py-5 mb-5">
+<header class="py-5 mb-5 mh-100 vh-100" id="background" style="background-image: url('{{ url_for("static", filename="antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
     <div class="container h-100">
-        <div class="row h-100 align-items-center">
+        <div class="row my-5 align-items-center">
             <div class="col-lg-12">
-                <h1 class="display-4 text-white mt-5 mb-2">How close to an antipode is a namesake?</h1>
-                <p class="lead mb-5 text-white-50">If you take a location A, and a location B, where the names of A and B are equal, how far is location B from the antipode of A.</p>
+                <h1 class="display-3 mb-2">How close is a location's antipode to a namesake?</h1>
+                <p class="h2">If you take a location, A, and another location, B, where B is the namesake of A, how far is B from the antipode of A?</p>
+                <div class="mb-3 card bg-transparent">
+                    <div class="card-body">
+                        <h3>antipode</h3>
+                        /ˈantɪpəʊd/
+                        <br>
+                        <i>noun</i>
+                        <br>
+                        the direct opposite of something.
+                    </div>
+                </div>
+                <div class="mb-3 card bg-transparent">
+                    <div class="card-body"><h3>namesake</h3>
+                        /ˈneɪmseɪk/
+                        <br>
+                        <i>noun</i>
+                        <br>
+                        a person or thing that has the same name as another.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -55,7 +76,7 @@
 <!-- Page Content -->
 <div class="container">
 
-    <div class="row">
+    <div class="vh-100" id="content">
         <div class="col-md-8 mb-5">
             <h2>How does it work?</h2>
             <hr>
@@ -71,228 +92,52 @@
                 <br>Github: <a href="https://github.com/jackwardell/antipodal">jackwardell</a>
                 <br>
             </address>
-            {#            <address>#}
-            {#                <abbr title="Phone">P:</abbr>#}
-            {#                (123) 456-7890#}
-            {#                <br>#}
-            {#                <abbr title="Email">E:</abbr>#}
-            {#                <a href="mailto:#">name@example.com</a>#}
-            {#            </address>#}
         </div>
     </div>
-    <!-- /.row -->
+{#    <!-- /.row -->#}
 
-    <div class="row">
-        <div class="col-md-8 order-md-1">
+    <div class="row mb-5">
+        <div class="col-md-8 order-md-1 mb-5">
             <h4 class="mb-3">Locations</h4>
             <form class="needs-validation" novalidate="">
-                {#                <div class="row">#}
-                {#                    <div class="col-md-6 mb-3">#}
-                {#                        <label for="firstName">First name</label>#}
-                {#                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-6">#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Valid first name is required.#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 664px; top: 43px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                    <div class="col-md-6 mb-3">#}
-                {#                        <label for="lastName">Last name</label>#}
-                {#                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-7">#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Valid last name is required.#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 664px; top: 43px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                </div>#}
-
-                {#                <div class="mb-3">#}
-                {#                    <label for="username">Username</label>#}
-                {#                    <div class="input-group">#}
-                {#                        <div class="input-group-prepend">#}
-                {#                            <span class="input-group-text">@</span>#}
-                {#                        </div>#}
-                {#                        <input type="text" class="form-control" id="username" placeholder="Username" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-8">#}
-                {#                        <div class="invalid-feedback" style="width: 100%;">#}
-                {#                            Your username is required.#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 648.969px; top: 11px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                </div>#}
-
-                {#                <div class="mb-3">#}
-                {#                    <label for="email">Email <span class="text-muted">(Optional)</span></label>#}
-                {#                    <input type="email" class="form-control" id="email" placeholder="you@example.com" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-9">#}
-                {#                    <div class="invalid-feedback">#}
-                {#                        Please enter a valid email address for shipping updates.#}
-                {#                    </div>#}
-                {#                    <span style="opacity: 1; left: 664px; top: 345px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                </div>#}
 
                 <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-10">
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                    <span style="opacity: 1; left: 664px; top: 431px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>
+                    <label for="address">Location A</label>
+                    <input type="text" class="form-control auto-complete" id="location-a" name="location-a" placeholder="e.g. Camberwell, London" required="" autocomplete="off">
+                    {#                    <div class="invalid-feedback">#}
+                    {#                        Please enter your shipping address.#}
+                    {#                    </div>#}
                 </div>
 
                 <div class="mb-3">
-                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-11">
-                    <span style="opacity: 1; left: 664px; top: 517px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NiA1LjA5OTQxIDEzLjI3MzUgNS4wNjE2NkwxMS42ODg1IDQuNDc2NjZDMTEuNDI0MyA0LjM2MzQxIDExLjEyMjQgNC40OTU1MSAxMS4xMjI0IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk4IDExLjYzNTUgMTEuMTUxMSAxMS42ODY0IDExLjE4NDIgMTEuNzI5NEMxMS4yMTczIDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTEgMTEuODI3MUwxMi45MzQgMTIuNDEyMUMxMy4xNzkzIDEyLjUwNjQgMTMuNTAwMSAxMi4zNzQzIDEzLjUwMDEgMTIuMTY2N0wxMy41IDUuMjg4MTFaTTkuNDc5MzYgMTAuNTQzN0M5LjQ3OTM2IDEwLjQ0OTQgOS4zODUwMSAxMC4zNTUgOS4yNTI5MSAxMC4zMTczTDcuNjY3OTEgOS43MzIyNkM3LjQwMzc2IDkuNjE5MDEgNy4xMDE4MSA5Ljc1MTExIDcuMTAxODEgOS45Mzk4MVYxNC4yNDI0QzcuMTA5MjUgMTQuMjk2MSA3LjEzMDU2IDE0LjM0NyA3LjE2MzY1IDE0LjM5QzcuMTk2NzMgMTQuNDMzMSA3LjI0MDQ2IDE0LjQ2NjcgNy4yOTA1MSAxNC40ODc3TDguOTEzNDEgMTUuMDcyN0M5LjE1ODcxIDE1LjE2NzEgOS40Nzk1MSAxNS4wMzUgOS40Nzk1MSAxNC44Mjc0TDkuNDc5MzYgMTAuNTQzN1pNOS40NzkzNiAxLjc0OTc2QzkuNDc5MzYgMS42NTU0MSA5LjM4NTAxIDEuNTYxMDYgOS4yNTI5MSAxLjUyMzMxTDcuNjY3OTEgMC45MzgzMTFDNy40MDM3NiAwLjgyNTA2MSA3LjEwMTgxIDAuOTU3MTYxIDcuMTAxODEgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MjUgNS41MDIxNyA3LjEzMDU2IDUuNTUzMDcgNy4xNjM2NSA1LjU5NjA5QzcuMTk2NzMgNS42MzkxMiA3LjI0MDQ2IDUuNjcyNzggNy4yOTA1MSA1LjY5Mzc2TDguOTEzNDEgNi4yNzg3NkM5LjE1ODcxIDYuMzczMTEgOS40Nzk1MSA2LjI0MTAxIDkuNDc5NTEgNi4wMzM0MUw5LjQ3OTM2IDEuNzQ5NzZaTTUuNDc5MTEgMS40MTk3NkM1LjQ3OTExIDEuMzI1MzYgNS4zODQ3NiAxLjIzMTAxIDUuMjUyNjYgMS4xOTMzMUwzLjY2NzY2IDAuNjA4MzExQzMuNDAzNTEgMC40OTUwNjEgMy4xMDE1NiAwLjYyNzE2MSAzLjEwMTU2IDAuODE1ODYxVjE0LjU5MTRDMy4xMDg5OSAxNC42NDUyIDMuMTMwMyAxNC42OTYxIDMuMTYzMzkgMTQuNzM5MUMzLjE5NjQ4IDE0Ljc4MjEgMy4yNDAyMSAxNC44MTU3IDMuMjkwMjYgMTQuODM2N0w0LjkxMzE2IDE1LjQyMTdDNS4xNTg0NiAxNS41MTYxIDUuNDc5MjYgMTUuMzg0IDUuNDc5MjYgMTUuMTc2NEw1LjQ3OTExIDEuNDE5NzZaIiBmaWxsPSIjOTk5NTkyIi8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>
+                    <label for="address2">Location B</label>
+                    <input type="text" class="form-control auto-complete" id="location-b" name="location-b" placeholder="e.g. Camberwell, Melbourne" required="">
                 </div>
 
-                {#                <div class="row">#}
-                {#                    <div class="col-md-5 mb-3">#}
-                {#                        <label for="country">Country</label>#}
-                {#                        <select class="custom-select d-block w-100" id="country" required="">#}
-                {#                            <option value="">Choose...</option>#}
-                {#                            <option>United States</option>#}
-                {#                        </select>#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Please select a valid country.#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                    <div class="col-md-4 mb-3">#}
-                {#                        <label for="state">State</label>#}
-                {#                        <select class="custom-select d-block w-100" id="state" required="">#}
-                {#                            <option value="">Choose...</option>#}
-                {#                            <option>California</option>#}
-                {#                        </select>#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Please provide a valid state.#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                    <div class="col-md-3 mb-3">#}
-                {#                        <label for="zip">Zip</label>#}
-                {#                        <input type="text" class="form-control" id="zip" placeholder="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-12">#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Zip code required.#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 664px; top: 43px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#                <hr class="mb-4">#}
-                {#                <div class="custom-control custom-checkbox">#}
-                {#                    <input type="checkbox" class="custom-control-input" id="same-address">#}
-                {#                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>#}
-                {#                </div>#}
-                {#                <div class="custom-control custom-checkbox">#}
-                {#                    <input type="checkbox" class="custom-control-input" id="save-info">#}
-                {#                    <label class="custom-control-label" for="save-info">Save this information for next time</label>#}
-                {#                </div>#}
-                {#                <hr class="mb-4">#}
-                {##}
-                {#                <h4 class="mb-3">Payment</h4>#}
-                {##}
-                {#                <div class="d-block my-3">#}
-                {#                    <div class="custom-control custom-radio">#}
-                {#                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">#}
-                {#                        <label class="custom-control-label" for="credit">Credit card</label>#}
-                {#                    </div>#}
-                {#                    <div class="custom-control custom-radio">#}
-                {#                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">#}
-                {#                        <label class="custom-control-label" for="debit">Debit card</label>#}
-                {#                    </div>#}
-                {#                    <div class="custom-control custom-radio">#}
-                {#                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">#}
-                {#                        <label class="custom-control-label" for="paypal">PayPal</label>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#                <div class="row">#}
-                {#                    <div class="col-md-6 mb-3">#}
-                {#                        <label for="cc-name">Name on card</label>#}
-                {#                        <input type="text" class="form-control" id="cc-name" placeholder="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-13">#}
-                {#                        <small class="text-muted">Full name as displayed on card</small>#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Name on card is required#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 664px; top: 43px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                    <div class="col-md-6 mb-3">#}
-                {#                        <label for="cc-number">Credit card number</label>#}
-                {#                        <input type="text" class="form-control" id="cc-number" placeholder="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-14">#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Credit card number is required#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 664px; top: 43px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#                <div class="row">#}
-                {#                    <div class="col-md-3 mb-3">#}
-                {#                        <label for="cc-expiration">Expiration</label>#}
-                {#                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Expiration date required#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                    <div class="col-md-3 mb-3">#}
-                {#                        <label for="cc-cvv">CVV</label>#}
-                {#                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1582967102644-15">#}
-                {#                        <div class="invalid-feedback">#}
-                {#                            Security code required#}
-                {#                        </div>#}
-                {#                        <span style="opacity: 1; left: 664px; top: 43px; width: 16px; min-width: 16px; height: 16px; position: absolute; background-image: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;); z-index: auto; background-repeat: no-repeat; background-position: 0px 0px; border: none; display: inline; visibility: visible;"></span>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#                <hr class="mb-4">#}
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>
             </form>
         </div>
-        {#        <div class="col-md-4 mb-5">#}
-        {#            <div class="card h-100">#}
-        {#                <img class="card-img-top" src="http://placehold.it/300x200" alt="">#}
-        {#                <div class="card-body">#}
-        {#                    <h4 class="card-title">Card title</h4>#}
-        {#                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus.</p>#}
-        {#                </div>#}
-        {#                <div class="card-footer">#}
-        {#                    <a href="#" class="btn btn-primary">Go!</a>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
-        {#        <div class="col-md-4 mb-5">#}
-        {#            <div class="card h-100">#}
-        {#                <img class="card-img-top" src="http://placehold.it/300x200" alt="">#}
-        {#                <div class="card-body">#}
-        {#                    <h4 class="card-title">Card title</h4>#}
-        {#                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>#}
-        {#                </div>#}
-        {#                <div class="card-footer">#}
-        {#                    <a href="#" class="btn btn-primary">Find Out More!</a>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
-        {#        <div class="col-md-4 mb-5">#}
-        {#            <div class="card h-100">#}
-        {#                <img class="card-img-top" src="http://placehold.it/300x200" alt="">#}
-        {#                <div class="card-body">#}
-        {#                    <h4 class="card-title">Card title</h4>#}
-        {#                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>#}
-        {#                </div>#}
-        {#                <div class="card-footer">#}
-        {#                    <a href="#" class="btn btn-primary">Find Out More!</a>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
     </div>
-    <!-- /.row -->
-
 </div>
-<!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-2 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Jack Wardell, WANC</p>
     </div>
-    <!-- /.container -->
 </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    $('.auto-complete').autoComplete({
+        resolverSettings: {
+            url: "{{ url_for('search_dropdown') }}"
+        }
+    });
+
+
+</script>
+
 
 </body>
 
