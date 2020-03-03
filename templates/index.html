@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-
+    {#    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap2.min.css') }}">#}
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-oOs/gFavzADqv3i5nCM+9CzXe3e5vXLXZ5LZ7PplpsWpTCufB7kqkTlC9FtZ5nJo" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top py-1">
     <div class="container">
         <a class="navbar-brand" href="{{ url_for('hello_world') }}">{{ config.name }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,63 +47,102 @@
     <div class="container h-100">
         <div class="row my-5 align-items-center">
             <div class="col-lg-12">
-                <h1 class="display-3 mb-2">How close is a location's antipode to a namesake?</h1>
-                <p class="h2">If you take a location, A, and another location, B, where B is the namesake of A, how far is B from the antipode of A?</p>
-                <div class="mb-3 card bg-transparent">
-                    <div class="card-body">
-                        <h3>antipode</h3>
-                        /ˈantɪpəʊd/
-                        <br>
-                        <i>noun</i>
-                        <br>
-                        the direct opposite of something.
-                    </div>
+                {#                <div class="text-center">#}
+                <p class="h1 display-4 mb-2">How close are two locations to being opposite?</p>
+                {#                                        <p class="h2">If you take a location, A, and another location, B, where B is the namesake of A, how far is B from the antipode of A?</p>#}
+                <p class="mt-5 h3">If you take two locations, A & B:</p>
+                <ul>
+                    <li class="h4">The Antipode Coefficient: How close is a location, B, to the antipode of A?</li>
+                    <li class="h4">The Wardell Antipode Namesake Coefficient: How close is a location, B, to the antipode of A, if B is the namesake of A?</li>
+                </ul>
+
+                <div class="text-center mb-3">
+                    <a class="btn btn-outline-primary my-4" href="#calculate">Calculate</a>
                 </div>
-                <div class="mb-3 card bg-transparent">
-                    <div class="card-body"><h3>namesake</h3>
-                        /ˈneɪmseɪk/
-                        <br>
-                        <i>noun</i>
-                        <br>
-                        a person or thing that has the same name as another.
-                    </div>
-                </div>
+                {#                </div>#}
+                {#                <div class="col-md-5">#}
+                {#                <div class="mb-3 card bg-transparent border-0">#}
+                {#                    <div class="card-body">#}
+                {#                        <h3>antipode</h3>#}
+                {#                        /ˈantɪpəʊd/#}
+                {#                        <br>#}
+                {#                        <i>noun</i>#}
+                {#                        <br>#}
+                {#                        the direct opposite of something.#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div class="mb-3 card bg-transparent border-0">#}
+                {#                    <div class="card-body"><h3>namesake</h3>#}
+                {#                        /ˈneɪmseɪk/#}
+                {#                        <br>#}
+                {#                        <i>noun</i>#}
+                {#                        <br>#}
+                {#                        a person or thing that has the same name as another.#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                </div>#}
+
             </div>
         </div>
     </div>
 </header>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container section" id="calculate">
+    <div class="card" id="content">
+        <div class="card-body">
+            <div class="col">
+                <h2>What's the idea?</h2>
+                <hr>
+                <img src="{{ url_for('static', filename='lat-long.png') }}" class="img-fluid rounded float-right" alt="Responsive image">
 
-    <div class="vh-100" id="content">
-        <div class="col-md-8 mb-5">
-            <h2>How does it work?</h2>
-            <hr>
-            <p>Simple: Enter 2 locations and we'll return the Antipode Namesake Factor (WANF)</p>
-            <a class="btn btn-primary btn-lg" href="#">Go! &raquo;</a>
-        </div>
-        <div class="col-md-4 mb-5">
-            <h2>Contact Me</h2>
-            <hr>
-            <address>
-                <strong>Jack Wardell</strong>
-                <br>Email: <a href="mailto:jackwardell@me.com">jackwardell@me.com</a>
-                <br>Github: <a href="https://github.com/jackwardell/antipodal">jackwardell</a>
-                <br>
-            </address>
-        </div>
-    </div>
-{#    <!-- /.row -->#}
+                <p>
+                    Every location on Earth has an antipode, a location diametrically opposite to it.
+                    Such that you could draw a straight line between a location and its antipode and it would pass through the centre of the Earth.
+                    This means that a location and its antipode are as far away as possible.
+                </p>
 
-    <div class="row mb-5">
-        <div class="col-md-8 order-md-1 mb-5">
+                <p>
+                    If two points are opposite, we can call them antipodal. We can create a variable to help us understand how close to antipodal two points are.
+                    I want to share an example but before it's useful to understand our <a target="_blank" href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">geographic coordinate system</a>.
+                </p>
+
+                <h5>Latitude and Longitude</h5>
+                <p>
+                    To determine any location on Earth we can use latitude and longitude to place the point.
+                    Lines of latitude start at 0&#176; at the equator and move North and South towards the poles.
+                    The North Pole is at 90&#176; N and the South Pole is at 90&#176; S.
+                    <br>
+                    Lines of longitude start at 0&#176; at the prime meridian in Greenwich and move East and West.
+                    They meet again at the <a target="_blank" href="https://en.wikipedia.org/wiki/180th_meridian"><u>ante-meridian</u></a> or the <a target="_blank" href="https://en.wikipedia.org/wiki/180th_meridian"><u>180th meridain</u></a>
+                    Latitude is
+                </p>
+
+                Let's work through an example: Camberwell is a district in South London
+
+
+                <h2>How does it work?</h2>
+                <hr>
+                <p>Simple: Enter two locations where and we'll return the Antipode Namesake Factor (WANF)</p>
+
+                {#                <a class="btn btn-primary btn-lg" href="#">Go! &raquo;</a>#}
+            </div>
+            {#            <div class="col-md-4 mb-5">#}
+            {#                <h2>Contact Me</h2>#}
+            {#                <hr>#}
+            {#                <address>#}
+            {#                    <strong>Jack Wardell</strong>#}
+            {#                    <br>Email: <a href="mailto:jackwardell@me.com">jackwardell@me.com</a>#}
+            {#                    <br>Github: <a href="https://github.com/jackwardell/antipodal">jackwardell</a>#}
+            {#                    <br>#}
+            {#                </address>#}
+            {#            </div>#}
             <h4 class="mb-3">Locations</h4>
             <form class="needs-validation" novalidate="">
 
                 <div class="mb-3">
                     <label for="address">Location A</label>
-                    <input type="text" class="form-control auto-complete" id="location-a" name="location-a" placeholder="e.g. Camberwell, London" required="" autocomplete="off">
+                    <input type="text" class="form-control auto-complete" id="location_a" name="location_a" placeholder="e.g. Camberwell, London" required="" autocomplete="off">
                     {#                    <div class="invalid-feedback">#}
                     {#                        Please enter your shipping address.#}
                     {#                    </div>#}
@@ -111,13 +150,37 @@
 
                 <div class="mb-3">
                     <label for="address2">Location B</label>
-                    <input type="text" class="form-control auto-complete" id="location-b" name="location-b" placeholder="e.g. Camberwell, Melbourne" required="">
+                    <input type="text" class="form-control auto-complete" id="location_b" name="location_b" placeholder="e.g. Camberwell, Melbourne" required="">
                 </div>
 
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>
             </form>
         </div>
     </div>
+    {#    <!-- /.row -->#}
+
+    {#    <div class="row mb-5">#}
+    {#        <div class="col-md-8 order-md-1 mb-5">#}
+    {#            <h4 class="mb-3">Locations</h4>#}
+    {#            <form class="needs-validation" novalidate="">#}
+    {##}
+    {#                <div class="mb-3">#}
+    {#                    <label for="address">Location A</label>#}
+    {#                    <input type="text" class="form-control auto-complete" id="location-a" name="location-a" placeholder="e.g. Camberwell, London" required="" autocomplete="off">#}
+    {#                    <div class="invalid-feedback">#}
+    {#                        Please enter your shipping address.#}
+    {#                    </div>#}
+    {#                </div>#}
+    {##}
+    {#                <div class="mb-3">#}
+    {#                    <label for="address2">Location B</label>#}
+    {#                    <input type="text" class="form-control auto-complete" id="location-b" name="location-b" placeholder="e.g. Camberwell, Melbourne" required="">#}
+    {#                </div>#}
+    {##}
+    {#                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>#}
+    {#            </form>#}
+    {#        </div>#}
+    {#    </div>#}
 </div>
 
 <!-- Footer -->
@@ -131,8 +194,10 @@
 
     $('.auto-complete').autoComplete({
         resolverSettings: {
-            url: "{{ url_for('search_dropdown') }}"
-        }
+            url: "{{ url_for('search_dropdown') }}",
+            requestThrottling: 250
+        },
+        minLength: 1
     });
 
 

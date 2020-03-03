@@ -11,26 +11,27 @@ location_types = ["country", "region", "district", "locality", "place", "neighbo
 
 
 class Config:
-    name = "Wardell's Antipodal Namesake Coefficient (WANC)"
+    name = "Antipodal Coefficient Calculator"
 
 
 @app.route("/")
 def hello_world():
+    print(request.args)
     return render_template("index.html", config=Config)
 
 
-@app.route("/api/search-location")
+@app.route("/api/location")
 def search_dropdown():
     location = request.args.get("q")
     query = mapbox_geocoder.forward(location, types=location_types)
     results = query.json()["features"]
-    # return jsonify(
-    #     [
-    #         {"name": i["place_name"], "coordinates": i["geometry"]["coordinates"]}
-    #         for i in results
-    #     ]
-    # )
-    return jsonify([i["place_name"] for i in results])
+    return jsonify(
+        [
+            {"text": i["place_name"], "value": i["geometry"]["coordinates"]}
+            for i in results
+        ]
+    )
+    # return jsonify([i["place_name"] for i in results])
 
 
 if __name__ == "__main__":
