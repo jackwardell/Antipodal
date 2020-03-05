@@ -176,13 +176,11 @@
 
             $('.auto-complete').autoComplete({
                 resolverSettings: {
-                    url: "{{ url_for('search_dropdown') }}",
+                    url: "{{ url_for('api.location') }}",
                     requestThrottling: 250,
                 },
                 minLength: 1
             });
-
-            $
 
 
             mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3dhcmRlbGwiLCJhIjoiY2s3OHFhM2FrMGw3MjNlcDZ1dXRjbDVrbSJ9.kVVllFJ8ZVNBSGv7z0wLow';
@@ -218,7 +216,7 @@
             {# };#}
 
             var geojson2 = $.getJSON(
-                "{{ url_for('geojson_point') }}",
+                "{{ url_for('api.geojson_point') }}",
                 {latitude_a: 40.6, longitude_a: 50.6, title_a: "random hello", latitude_b: 88, longitude_b: 5.4, title_b: "wagwan"},
                 function (data) {
 
