@@ -8,12 +8,16 @@
         {% endblock %}
     </title>
 
-    {#    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap2.min.css') }}">#}
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-oOs/gFavzADqv3i5nCM+9CzXe3e5vXLXZ5LZ7PplpsWpTCufB7kqkTlC9FtZ5nJo" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
+
+
+    {#    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-oOs/gFavzADqv3i5nCM+9CzXe3e5vXLXZ5LZ7PplpsWpTCufB7kqkTlC9FtZ5nJo" crossorigin="anonymous">#}
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.2/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 
     {% block head %}
     {% endblock %}
@@ -21,36 +25,83 @@
 </head>
 
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top py-1">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url_for('hello_world') }}">{{ config.name }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-{% block body %}
-{% endblock %}
+<div class="container">
+    <!-- Navigation -->
+    {#    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top py-1">#}
+    {#        <div class="container">#}
+    {#            <a class="navbar-brand" href="{{ url_for('hello_world') }}">{{ config.name }}</a>#}
+    {#            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">#}
+    {#                <span class="navbar-toggler-icon"></span>#}
+    {#            </button>#}
+    {#            <div class="collapse navbar-collapse" id="navbarResponsive">#}
+    {#                <ul class="navbar-nav ml-auto">#}
+    {#                    <li class="nav-item active">#}
+    {#                        <a class="nav-link" href="#">Home#}
+    {#                            <span class="sr-only">(current)</span>#}
+    {#                        </a>#}
+    {#                    </li>#}
+    {#                    <li class="nav-item">#}
+    {#                        <a class="nav-link" href="#">About</a>#}
+    {#                    </li>#}
+    {#                    <li class="nav-item">#}
+    {#                        <a class="nav-link" href="#">Services</a>#}
+    {#                    </li>#}
+    {#                    <li class="nav-item">#}
+    {#                        <a class="nav-link" href="#">Contact</a>#}
+    {#                    </li>#}
+    {#                </ul>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </nav>#}
 
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-3 pt-1">
+                {#                <a class="text-muted" href="#">Subscribe</a>#}
+            </div>
+            <div class="col-6 text-center">
+                <a class="blog-header-logo text-dark" href="#">Wardell's Antipode Coefficient</a>
+            </div>
+            <div class="col-3 d-flex justify-content-end align-items-center">
+                {#                <a class="text-muted" href="#" aria-label="Search">#}
+                {#                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title>#}
+                {#                        <circle cx="10.5" cy="10.5" r="7.5"/>#}
+                {#                        <path d="M21 21l-5.2-5.2"/>#}
+                {#                    </svg>#}
+                {#                </a>#}
+                {#                <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>#}
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between ">
+            {#            <a class="p-2 text-muted" href="#">Home</a>#}
+            {#            <a class="p-2 text-muted" href="#">Calculate</a>#}
+            {#            <a class="p-2 text-muted" href="#">About</a>#}
+            {#            <a class="p-2 text-muted" href="#">The Idea</a>#}
+            {#            <a class="p-2 text-muted" href="#">The Results</a>#}
+            {#            <a class="p-2 text-muted" href="#">Github</a>#}
+            {#            <a class="p-2 text-muted" href="#">Camberwell</a>#}
+            {#            <a class="p-2 text-muted" href="#">Contact Me</a>#}
+            {#            <a class="p-2 text-muted" href="#">Opinion</a>#}
+            {#            <a class="p-2 text-muted" href="#">Science</a>#}
+            {#            <a class="p-2 text-muted" href="#">Health</a>#}
+            {#            <a class="p-2 text-muted" href="#">Style</a>#}
+            {#            <a class="p-2 text-muted" href="#">Travel</a>#}
+        </nav>
+    </div>
+
+    {% block body %}
+    {% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="py-2 bg-light">
+    <div class="container">
+        <p class="m-0 text-center ">Copyright &copy; Jack Wardell, WANC</p>
+    </div>
+</footer>
 </body>
 
 </html>

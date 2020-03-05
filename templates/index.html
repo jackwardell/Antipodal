@@ -1,188 +1,259 @@
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Home</title>#}
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap2.min.css') }}">#}
-{#    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-oOs/gFavzADqv3i5nCM+9CzXe3e5vXLXZ5LZ7PplpsWpTCufB7kqkTlC9FtZ5nJo" crossorigin="anonymous">#}
-{#    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>#}
-{#    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>#}
-{#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>#}
-{#    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.2/dist/latest/bootstrap-autocomplete.min.js"></script>#}
-{##}
-{#</head>#}
-{##}
-{#<body>#}
-
 {% extends 'base.html' %}
-
 
 {% block title %}
     Home
 {% endblock %}
 
+{% block head %}
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block body %}
+    <div class="container">
 
-    <!-- Header -->
-    <header class="py-5 mb-5 mh-100 vh-100" id="background" style="background-image: url('{{ url_for("static", filename="antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
-        <div class="container h-100">
-            <div class="row my-5 align-items-center">
-                <div class="col-lg-12">
-                    {#                <div class="text-center">#}
-                    <p class="h1 display-4 mb-2">How close are two locations to being opposite?</p>
-                    {#                                        <p class="h2">If you take a location, A, and another location, B, where B is the namesake of A, how far is B from the antipode of A?</p>#}
-                    <p class="mt-5 h3">If you take two locations, A & B:</p>
-                    <ul>
-                        <li class="h4">The Antipode Coefficient: How close is a location, B, to the antipode of A?</li>
-                        <li class="h4">The Wardell Antipode Namesake Coefficient: How close is a location, B, to the antipode of A, if B is the namesake of A?</li>
-                    </ul>
-
-                    <div class="text-center mb-3">
-                        <a class="btn btn-outline-primary my-4" href="#calculate">Calculate</a>
-                    </div>
-                    {#                </div>#}
-                    {#                <div class="col-md-5">#}
-                    {#                <div class="mb-3 card bg-transparent border-0">#}
-                    {#                    <div class="card-body">#}
-                    {#                        <h3>antipode</h3>#}
-                    {#                        /ˈantɪpəʊd/#}
-                    {#                        <br>#}
-                    {#                        <i>noun</i>#}
-                    {#                        <br>#}
-                    {#                        the direct opposite of something.#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {#                <div class="mb-3 card bg-transparent border-0">#}
-                    {#                    <div class="card-body"><h3>namesake</h3>#}
-                    {#                        /ˈneɪmseɪk/#}
-                    {#                        <br>#}
-                    {#                        <i>noun</i>#}
-                    {#                        <br>#}
-                    {#                        a person or thing that has the same name as another.#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    {#                </div>#}
-
-                </div>
+        <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark" style="background-image: url('{{ url_for("static", filename="img/antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 font-italic">How close are two locations to being opposite?</h1>
+                <p class="lead my-3">If you take two locations, A & B, how close is the B to the antipode A?</p>
+                {#                    <li>how close is a location, B, to the antipode of A?</li> <li>How close is a location, B, to the antipode of A, if B is the namesake of A?</li></ul>#}
+                <p class="lead mb-0"><a href="#calculate" class="font-weight-bold btn-outline-dark">Calculate</a></p>
             </div>
         </div>
-    </header>
-
-    <!-- Page Content -->
-    <div class="container section" id="calculate">
-        <div class="card" id="content">
-            <div class="card-body">
-                <div class="col">
-                    <h2>What's the idea?</h2>
-                    <hr>
-                    <img src="{{ url_for('static', filename='lat-long.png') }}" class="img-fluid rounded float-right" alt="Responsive image">
-
-                    <p>
-                        Every location on Earth has an antipode, a location diametrically opposite to it.
-                        Such that you could draw a straight line between a location and its antipode and it would pass through the centre of the Earth.
-                        This means that a location and its antipode are as far away as possible.
-                    </p>
-
-                    <p>
-                        If two points are opposite, we can call them antipodal. We can create a variable to help us understand how close to antipodal two points are.
-                        I want to share an example but before it's useful to understand our <a target="_blank" href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">geographic coordinate system</a>.
-                    </p>
-
-                    <h5>Latitude and Longitude</h5>
-                    <p>
-                        To determine any location on Earth we can use latitude and longitude to place the point.
-                        Lines of latitude start at 0&#176; at the equator and move North and South towards the poles.
-                        The North Pole is at 90&#176; N and the South Pole is at 90&#176; S.
-                        <br>
-                        Lines of longitude start at 0&#176; at the prime meridian in Greenwich and move East and West.
-                        They meet again at the <a target="_blank" href="https://en.wikipedia.org/wiki/180th_meridian"><u>ante-meridian</u></a> or the <a target="_blank" href="https://en.wikipedia.org/wiki/180th_meridian"><u>180th meridain</u></a>
-                        Latitude is
-                    </p>
-
-                    Let's work through an example: Camberwell is a district in South London
 
 
-                    <h2>How does it work?</h2>
-                    <hr>
-                    <p>Simple: Enter two locations where and we'll return the Antipode Namesake Factor (WANF)</p>
+        <section id="calculate">
+            <div class="row mb-2">
 
-                    {#                <a class="btn btn-primary btn-lg" href="#">Go! &raquo;</a>#}
+                <div class="col-md-6">
+                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative d-flex">
+                        <div class="col p-4 d-flex flex-column position-static mb-3">
+                            <strong class="d-inline-block mb-2 text-primary">Locations</strong>
+                            <h3 class="mb-1">Calculate</h3>
+                            <p class="card-text mb-3">Enter both locations below to calculate the antipode coefficient.</p>
+                            <div class="mb-3">
+                                <label for="address">Location A:</label>
+                                <select type="text" class="form-control auto-complete" id="location_a" name="location_a" placeholder="e.g. Camberwell, London" required="" autocomplete="off"></select>
+                            </div>
+                            <div class="mb-5">
+                                <label for="address2">Location B:</label>
+                                <select type="text" class="form-control auto-complete" id="location_b" name="location_b" placeholder="e.g. Camberwell, Melbourne" required=""></select>
+                            </div>
+
+                            <h5 class="card-text mb-5"><i>Antipode Coefficient:</i> <span>N/A</span></h5>
+
+                            <button class="btn btn-primary btn-lg btn-block mb-2" type="submit"><h5>Submit!</h5></button>
+
+                        </div>
+
+                    </div>
                 </div>
-                {#            <div class="col-md-4 mb-5">#}
-                {#                <h2>Contact Me</h2>#}
-                {#                <hr>#}
-                {#                <address>#}
-                {#                    <strong>Jack Wardell</strong>#}
-                {#                    <br>Email: <a href="mailto:jackwardell@me.com">jackwardell@me.com</a>#}
-                {#                    <br>Github: <a href="https://github.com/jackwardell/antipodal">jackwardell</a>#}
-                {#                    <br>#}
-                {#                </address>#}
-                {#            </div>#}
-                <h4 class="mb-3">Locations</h4>
-                <form class="needs-validation" novalidate="">
 
-                    <div class="mb-3">
-                        <label for="address">Location A</label>
-                        <select type="text" class="form-control auto-complete" id="location_a" name="location_a" placeholder="e.g. Camberwell, London" required="" autocomplete="off"></select>
-                        {#                    <div class="invalid-feedback">#}
-                        {#                        Please enter your shipping address.#}
-                        {#                    </div>#}
+                <div class="col-md-6">
+                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative d-flex">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-success">Map</strong>
+
+                            <div id="map"></div>
+                            {##}
+                            {#                        <h3 class="mb-0">Post title</h3>#}
+                            {#                        <div class="mb-1 text-muted">Nov 11</div>#}
+                            {#                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>#}
+                            {#                        <a href="#" class="stretched-link">Continue reading</a>#}
+                            {#                    </div>#}
+                            {#                    <div class="col-auto d-none d-lg-block">#}
+                            {#                        {% include icons/placeholder.svg width="200" height="250" background="#55595c" color="#eceeef" text="Thumbnail" %}#}
+                            {#                    </div>#}
+                        </div>
                     </div>
+                </div>
 
-
-                    <div class="mb-3">
-                        <label for="address2">Location B</label>
-                        <select type="text" class="form-control auto-complete" id="location_b" name="location_b" placeholder="e.g. Camberwell, Melbourne" required=""></select>
-                    </div>
-
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>
-                </form>
             </div>
-        </div>
-        {#    <!-- /.row -->#}
+        </section>
 
-        {#    <div class="row mb-5">#}
-        {#        <div class="col-md-8 order-md-1 mb-5">#}
-        {#            <h4 class="mb-3">Locations</h4>#}
-        {#            <form class="needs-validation" novalidate="">#}
-        {##}
-        {#                <div class="mb-3">#}
-        {#                    <label for="address">Location A</label>#}
-        {#                    <input type="text" class="form-control auto-complete" id="location-a" name="location-a" placeholder="e.g. Camberwell, London" required="" autocomplete="off">#}
-        {#                    <div class="invalid-feedback">#}
-        {#                        Please enter your shipping address.#}
-        {#                    </div>#}
-        {#                </div>#}
-        {##}
-        {#                <div class="mb-3">#}
-        {#                    <label for="address2">Location B</label>#}
-        {#                    <input type="text" class="form-control auto-complete" id="location-b" name="location-b" placeholder="e.g. Camberwell, Melbourne" required="">#}
-        {#                </div>#}
-        {##}
-        {#                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>#}
-        {#            </form>#}
-        {#        </div>#}
-        {#    </div>#}
+
+        <!-- Page Content -->
+{#        <div class="container section" id="calculate">#}
+{#            <div class="card" id="content">#}
+{#                <div class="card-body">#}
+{#                    <div class="col">#}
+{#                        <h2>What's the idea?</h2>#}
+{#                        <hr>#}
+{#                        <img src="{{ url_for('static', filename='lat-long.png') }}" class="img-fluid rounded float-right" alt="Responsive image">#}
+{##}
+{#                        <p>#}
+{#                            Every location on Earth has an antipode, a location diametrically opposite to it.#}
+{#                            Such that you could draw a straight line between a location and its antipode and it would pass through the centre of the Earth.#}
+{#                            This means that a location and its antipode are as far away as possible.#}
+{#                        </p>#}
+{##}
+{#                        <p>#}
+{#                            If two points are opposite, we can call them antipodal. We can create a variable to help us understand how close to antipodal two points are.#}
+{#                            I want to share an example but before it's useful to understand our <a target="_blank" href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">geographic coordinate system</a>.#}
+{#                        </p>#}
+{##}
+{#                        <h5>Latitude and Longitude</h5>#}
+{#                        <p>#}
+{#                            To determine any location on Earth we can use latitude and longitude to place the point.#}
+{#                            Lines of latitude start at 0&#176; at the equator and move North and South towards the poles.#}
+{#                            The North Pole is at 90&#176; N and the South Pole is at 90&#176; S.#}
+{#                            <br>#}
+{#                            Lines of longitude start at 0&#176; at the prime meridian in Greenwich and move East and West.#}
+{#                            They meet again at the <a target="_blank" href="https://en.wikipedia.org/wiki/180th_meridian"><u>ante-meridian</u></a> or the <a target="_blank" href="https://en.wikipedia.org/wiki/180th_meridian"><u>180th meridain</u></a>#}
+{#                            Latitude is#}
+{#                        </p>#}
+{##}
+{#                        Let's work through an example: Camberwell is a district in South London#}
+{##}
+{##}
+{#                        <h2>How does it work?</h2>#}
+{#                        <hr>#}
+{#                        <p>Simple: Enter two locations where and we'll return the Antipode Namesake Factor (WANF)</p>#}
+{##}
+                        {#                <a class="btn btn-primary btn-lg" href="#">Go! &raquo;</a>#}
+{#                    </div>#}
+                    {#            <div class="col-md-4 mb-5">#}
+                    {#                <h2>Contact Me</h2>#}
+                    {#                <hr>#}
+                    {#                <address>#}
+                    {#                    <strong>Jack Wardell</strong>#}
+                    {#                    <br>Email: <a href="mailto:jackwardell@me.com">jackwardell@me.com</a>#}
+                    {#                    <br>Github: <a href="https://github.com/jackwardell/antipodal">jackwardell</a>#}
+                    {#                    <br>#}
+                    {#                </address>#}
+                    {#            </div>#}
+{#                    <h4 class="mb-3">Locations</h4>#}
+{#                    <form class="needs-validation" novalidate="">#}
+{##}
+{#                        <div class="mb-3">#}
+{#                            <label for="address">Location A</label>#}
+{#                            <select type="text" class="form-control auto-complete" id="location_a" name="location_a" placeholder="e.g. Camberwell, London" required="" autocomplete="off"></select>#}
+                            {#                    <div class="invalid-feedback">#}
+                            {#                        Please enter your shipping address.#}
+                            {#                    </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="mb-3">#}
+{#                            <label for="address2">Location B</label>#}
+{#                            <select type="text" class="form-control auto-complete" id="location_b" name="location_b" placeholder="e.g. Camberwell, Melbourne" required=""></select>#}
+{#                        </div>#}
+{##}
+{#                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+            {#    <!-- /.row -->#}
+{##}
+            {#    <div class="row mb-5">#}
+            {#        <div class="col-md-8 order-md-1 mb-5">#}
+            {#            <h4 class="mb-3">Locations</h4>#}
+            {#            <form class="needs-validation" novalidate="">#}
+            {##}
+            {#                <div class="mb-3">#}
+            {#                    <label for="address">Location A</label>#}
+            {#                    <input type="text" class="form-control auto-complete" id="location-a" name="location-a" placeholder="e.g. Camberwell, London" required="" autocomplete="off">#}
+            {#                    <div class="invalid-feedback">#}
+            {#                        Please enter your shipping address.#}
+            {#                    </div>#}
+            {#                </div>#}
+            {##}
+            {#                <div class="mb-3">#}
+            {#                    <label for="address2">Location B</label>#}
+            {#                    <input type="text" class="form-control auto-complete" id="location-b" name="location-b" placeholder="e.g. Camberwell, Melbourne" required="">#}
+            {#                </div>#}
+            {##}
+            {#                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit!</button>#}
+            {#            </form>#}
+            {#        </div>#}
+            {#    </div>#}
+{#        </div>#}
+
+
+
+        <script>
+
+            $('.auto-complete').autoComplete({
+                resolverSettings: {
+                    url: "{{ url_for('search_dropdown') }}",
+                    requestThrottling: 250,
+                },
+                minLength: 1
+            });
+
+            mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3dhcmRlbGwiLCJhIjoiY2s3OHFhM2FrMGw3MjNlcDZ1dXRjbDVrbSJ9.kVVllFJ8ZVNBSGv7z0wLow';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11'
+            });
+
+            {#var geojson = {#}
+            {#    type: 'FeatureCollection',#}
+            {#    features: [{#}
+            {#        type: 'Feature',#}
+            {#        geometry: {#}
+            {#            type: 'Point',#}
+            {#            coordinates: [-77.032, 38.913]#}
+            {#        },#}
+            {#        properties: {#}
+            {#            title: 'Mapbox',#}
+            {#            description: 'Washington, D.C.'#}
+            {#        }#}
+            {#    },#}
+            {#        {#}
+            {#            type: 'Feature',#}
+            {#            geometry: {#}
+            {#                type: 'Point',#}
+            {#                coordinates: [-122.414, 37.776]#}
+            {#            },#}
+            {#            properties: {#}
+            {#                title: 'Mapbox',#}
+            {#                description: 'San Francisco, California'#}
+            {#            }#}
+            {#        }]#}
+            {# };#}
+
+            var geojson2 = $.getJSON(
+                "{{ url_for('geojson_point') }}",
+                {latitude_a: 40.6, longitude_a: 50.6, title_a: "random hello", latitude_b: 88, longitude_b: 5.4, title_b: "wagwan"},
+                function (data) {
+
+                    mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3dhcmRlbGwiLCJhIjoiY2s3OHFhM2FrMGw3MjNlcDZ1dXRjbDVrbSJ9.kVVllFJ8ZVNBSGv7z0wLow';
+                    var map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/streets-v11'
+                    });
+
+                    map.on('load', function () {
+                        map.addSource('points', {
+                            'type': 'geojson',
+                            'data': data
+                        });
+                        map.addLayer({
+                            'id': 'a',
+                            'type': 'symbol',
+                            'source': 'points',
+                            'layout': {
+                                'icon-image': ['concat', ['get', 'icon'], '-15'],
+                                'text-field': ['get', 'title'],
+                                'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                                'text-offset': [0, 0.6],
+                                'text-anchor': 'top'
+                            }
+                        });
+                        map.addLayer({
+                            'id': 'b',
+                            'type': 'circle',
+                            'source': 'national-park',
+                            'paint': {
+                                'circle-radius': 6,
+                                'circle-color': '#B42222'
+                            },
+                            'filter': ['==', '$type', 'Point']
+                        });
+                    });
+                }
+            );
+        </script>
     </div>
-
-    <!-- Footer -->
-    <footer class="py-2 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Jack Wardell, WANC</p>
-        </div>
-    </footer>
-
-    <script>
-
-        $('.auto-complete').autoComplete({
-            resolverSettings: {
-                url: "{{ url_for('search_dropdown') }}",
-                requestThrottling: 250
-            },
-            minLength: 1
-        });
-
-
-    </script>
-
 {% endblock %}

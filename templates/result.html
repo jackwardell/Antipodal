@@ -35,65 +35,75 @@
             style: 'mapbox://styles/mapbox/streets-v11'
         });
 
-        var geojson = {
-            type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [-77.032, 38.913]
-                },
-                properties: {
-                    title: 'Mapbox',
-                    description: 'Washington, D.C.'
-                }
-            },
-                {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [-122.414, 37.776]
-                    },
-                    properties: {
-                        title: 'Mapbox',
-                        description: 'San Francisco, California'
-                    }
-                }]
-        };
+        {#var geojson = {#}
+        {#    type: 'FeatureCollection',#}
+        {#    features: [{#}
+        {#        type: 'Feature',#}
+        {#        geometry: {#}
+        {#            type: 'Point',#}
+        {#            coordinates: [-77.032, 38.913]#}
+        {#        },#}
+        {#        properties: {#}
+        {#            title: 'Mapbox',#}
+        {#            description: 'Washington, D.C.'#}
+        {#        }#}
+        {#    },#}
+        {#        {#}
+        {#            type: 'Feature',#}
+        {#            geometry: {#}
+        {#                type: 'Point',#}
+        {#                coordinates: [-122.414, 37.776]#}
+        {#            },#}
+        {#            properties: {#}
+        {#                title: 'Mapbox',#}
+        {#                description: 'San Francisco, California'#}
+        {#            }#}
+        {#        }]#}
+        {# };#}
 
-        map.on('load', function () {
-            map.loadImage(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png',
-                function (error, image) {
-                    if (error) throw error;
-                    map.addImage('cat', image);
-                    map.addSource('point', {
+        var geojson2 = $.getJSON(
+            "{{ url_for('geojson_point') }}",
+            {latitude_a: 40.6, longitude_a: 50.6, title_a: "random hello", latitude_b: 88, longitude_b: 5.4, title_b: "wagwan"},
+            function (data) {
+
+                mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3dhcmRlbGwiLCJhIjoiY2s3OHFhM2FrMGw3MjNlcDZ1dXRjbDVrbSJ9.kVVllFJ8ZVNBSGv7z0wLow';
+                var map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/streets-v11'
+                });
+
+                map.on('load', function () {
+                    map.addSource('points', {
                         'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                                {
-                                    'type': 'Feature',
-                                    'geometry': {
-                                        'type': 'Point',
-                                        'coordinates': [0, 0]
-                                    }
-                                }
-                            ]
+                        'data': data
+                    });
+                    map.addLayer({
+                        'id': 'a',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {
+                            'icon-image': ['concat', ['get', 'icon'], '-15'],
+                            'text-field': ['get', 'title'],
+                            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                            'text-offset': [0, 0.6],
+                            'text-anchor': 'top'
                         }
                     });
                     map.addLayer({
-                        'id': 'points',
-                        'type': 'symbol',
-                        'source': 'point',
-                        'layout': {
-                            'icon-image': 'cat',
-                            'icon-size': 0.25
-                        }
+                        'id': 'b',
+                        'type': 'circle',
+                        'source': 'national-park',
+                        'paint': {
+                            'circle-radius': 6,
+                            'circle-color': '#B42222'
+                        },
+                        'filter': ['==', '$type', 'Point']
                     });
-                }
-            );
-        });
+                });
+            }
+        );
+
+
     </script>
 
 {% endblock %}
