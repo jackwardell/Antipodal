@@ -63,34 +63,30 @@ def geojson_point():
 
         return jsonify(
             FeatureCollection(
-                [
-                    a.to_feature(),
-                    b.to_feature(),
-                    a_antipode.to_feature(),
-                ]
+                [a.to_feature(), b.to_feature(), a_antipode.to_feature(),]
             )
         )
 
 
-@api.route("/geojson/line")
-def geojson_line():
-    coordinates_a = request.args.get("location_a_coordinates")
-    coordinates_b = request.args.get("location_b_coordinates")
-
-    name_a = request.args.get("location_a_name")
-    name_b = request.args.get("location_b_name")
-
-    if not coordinates_a and coordinates_b:
-        abort(404)
-    else:
-        a = Location.from_mapbox(coordinates_a, name=name_a)
-        b = Location.from_mapbox(coordinates_b, name=name_b)
-
-        return jsonify(
-            FeatureCollection(
-                [
-                    gen_linestring_feature(a, b),
-                    gen_linestring_feature(b, a.antipode())
-                ]
-            )
-        )
+# @api.route("/geojson/line")
+# def geojson_line():
+#     coordinates_a = request.args.get("location_a_coordinates")
+#     coordinates_b = request.args.get("location_b_coordinates")
+#
+#     name_a = request.args.get("location_a_name")
+#     name_b = request.args.get("location_b_name")
+#
+#     if not coordinates_a and coordinates_b:
+#         abort(404)
+#     else:
+#         a = Location.from_mapbox(coordinates_a, name=name_a)
+#         b = Location.from_mapbox(coordinates_b, name=name_b)
+#
+#         return jsonify(
+#             FeatureCollection(
+#                 [
+#                     gen_linestring_feature(a, b),
+#                     gen_linestring_feature(b, a.antipode())
+#                 ]
+#             )
+#         )

@@ -24,10 +24,6 @@ location_types = [
 sign = lambda x: -1 if x < 0 else (1 if x > 0 else 0)
 
 
-class Config:
-    name = "Antipodal Coefficient Calculator"
-
-
 def gen_linestring_feature(location_a, location_b):
     linestring = LineString([location_a.to_geojson(), location_b.to_geojson()])
     return Feature(geometry=linestring)
