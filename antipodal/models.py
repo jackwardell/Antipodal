@@ -5,9 +5,6 @@ db = SQLAlchemy()
 
 
 class PageHit(db.Model):
-    """
-    Table type: Fact
-    """
 
     __tablename__ = "page_hit"
 
@@ -18,3 +15,20 @@ class PageHit(db.Model):
 
     def hit_date(self):
         return self.timestamp.strftime("%d %b %Y")
+
+
+# class AntipodeCoefficientCalculation:
+#
+#     __tablename__ = "antipode_coefficient_calculation"
+#
+#     id = db.Column(db.Integer, autoincrement=True, primary_key=True, index=True)
+#     timestamp = db.Column(db.DateTime, server_default=sql.func.now(), index=True)
+#     ip_address = db.Column(db.String)
+#
+#     name_a = db.Column(db.String)
+#     latitude_a = db.Column(db.Float)
+#     longitude_b = db.Column(db.Float)
+#
+#     name_b = db.Column(db.String)
+#     latitude_a = db.Column(db.Float)
+#     longitude_b = db.Column(db.Float)
