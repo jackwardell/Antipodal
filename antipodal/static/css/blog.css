@@ -68,6 +68,11 @@ h1, h2, h3, h4, h5, h6 {
   .h-md-250 { height: 250px; }
 }
 
+.h-500 { height: 500px; }
+@media (min-width: 768px) {
+  .h-md-250 { height: 500px; }
+}
+
 /* Pagination */
 .blog-pagination {
   margin-bottom: 4rem;

@@ -1,14 +1,14 @@
 from flask import Blueprint
+from flask import abort
 from flask import jsonify
 from flask import request
-from flask import abort
+from geojson import FeatureCollection
+from geopy.distance import distance
 
 from .utils import Location
+from .utils import gen_linestring_feature
 from .utils import location_types
 from .utils import mapbox_geocoder
-from .utils import gen_linestring_feature
-
-from geojson import FeatureCollection
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
@@ -26,32 +26,71 @@ def location():
     )
 
 
-@api.route("/geojson")
-def geojson_point():
-    latitude_a = request.args.get("latitude_a")
-    longitude_a = request.args.get("longitude_a")
-    title_a = request.args.get("title_a")
+@api.route("/calculate")
+def calculate():
+    coordinates_a = request.args.get("location_a_coordinates")
+    coordinates_b = request.args.get("location_b_coordinates")
 
-    latitude_b = request.args.get("latitude_b")
-    longitude_b = request.args.get("longitude_b")
-    title_b = request.args.get("title_b")
-
-    if not latitude_a and longitude_a and latitude_b and longitude_b:
+    if not coordinates_a and coordinates_b:
         abort(404)
     else:
-        location_a = Location(latitude_a, longitude_a, title_a)
-        location_b = Location(latitude_b, longitude_b, title_b)
+        a = Location.from_mapbox(coordinates_a)
+        b = Location.from_mapbox(coordinates_b)
+        a_to_b_distance = distance(a.coordinates, b.coordinates)
+        a_to_anti_a_distance = distance(a.coordinates, a.antipode_coordinates)
+        antipode_coefficient = a_to_b_distance / a_to_anti_a_distance
+        return jsonify({"antipode coefficient": round(antipode_coefficient, 4)})
+
+
+@api.route("/geojson/point")
+def geojson_point():
+    coordinates_a = request.args.get("location_a_coordinates")
+    coordinates_b = request.args.get("location_b_coordinates")
+
+    name_a = request.args.get("location_a_name")
+    name_b = request.args.get("location_b_name")
+
+    if not coordinates_a and coordinates_b:
+        abort(404)
+    else:
+        a = Location.from_mapbox(coordinates_a, name=name_a)
+        b = Location.from_mapbox(coordinates_b, name=name_b)
+        a_antipode = a.antipode()
+
+        a.properties["class"] = "a"
+        b.properties["class"] = "b"
+        a_antipode.properties["class"] = "antipode-a"
 
         return jsonify(
             FeatureCollection(
                 [
-                    location_a.to_feature(id_="a"),
-                    location_b.to_feature(id_="b"),
-                    location_a.antipode().to_feature(id_="anti_a"),
-                    gen_linestring_feature(location_a, location_b, "ab"),
-                    gen_linestring_feature(
-                        location_b, location_a.antipode(), "b_anti_a"
-                    ),
+                    a.to_feature(),
+                    b.to_feature(),
+                    a_antipode.to_feature(),
+                ]
+            )
+        )
+
+
+@api.route("/geojson/line")
+def geojson_line():
+    coordinates_a = request.args.get("location_a_coordinates")
+    coordinates_b = request.args.get("location_b_coordinates")
+
+    name_a = request.args.get("location_a_name")
+    name_b = request.args.get("location_b_name")
+
+    if not coordinates_a and coordinates_b:
+        abort(404)
+    else:
+        a = Location.from_mapbox(coordinates_a, name=name_a)
+        b = Location.from_mapbox(coordinates_b, name=name_b)
+
+        return jsonify(
+            FeatureCollection(
+                [
+                    gen_linestring_feature(a, b),
+                    gen_linestring_feature(b, a.antipode())
                 ]
             )
         )
