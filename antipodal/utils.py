@@ -1,10 +1,15 @@
 import os
+from functools import wraps
 
 from flask import Flask
+from flask import request
 from geojson import Feature
 from geojson import LineString
 from geojson import Point
 from mapbox import Geocoder
+
+from .models import PageHit
+from .models import db
 
 app = Flask(__name__)
 
@@ -95,3 +100,21 @@ class Location:
 
     def __str__(self):
         return f"({self.latitude}, {self.longitude})"
+
+
+def page_hit(fn):
+    """decorator to record values to page hit table"""
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        db.session.add(
+            PageHit(
+                ip_address=request.environ.get(
+                    "HTTP_X_FORWARDED_FOR", request.environ["REMOTE_ADDR"]
+                ),
+                url=request.path,
+            )
+        )
+        db.session.commit()
+        return fn(*args, **kwargs)
+
+    return wrapper

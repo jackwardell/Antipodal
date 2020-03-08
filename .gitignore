@@ -3,3 +3,4 @@ __pycache__/*
 .idea/*
 .env
 antipodal/__pycache__/
+*egg-info*
