@@ -72,6 +72,7 @@ def test_calculate_api(test_client):
     assert isinstance(data, dict)
     assert "antipode coefficient" in data
     assert "geojson" in data
+    assert "antipode coefficient" == 0.8451353577287053
 
 
 def test_page_hits_api(test_client):
