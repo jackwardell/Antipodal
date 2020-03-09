@@ -11,12 +11,16 @@ def test_calculate_api(test_client):
     response = test_client.get("/api/calculate")
     assert response.status_code == 400
 
-    # incorrect queries
-    location_a_name = "Camberwell Green, London, Greater London, England, United Kingdom"
+    # query data
+    location_a_name = (
+        "Camberwell Green, London, Greater London, England, United Kingdom"
+    )
     location_a_coords = "145.071,-37.835"
     location_b_name = "Camberwell, Victoria, Australia"
     location_b_coords = "-0.0938,51.4739"
+    anti_a_coords = [-34.929, 37.835]
 
+    # incorrect queries
     response = test_client.get(
         "/api/calculate"
         f"?location_b_coordinates={url_quote(location_b_coords)}"
@@ -80,35 +84,40 @@ def test_calculate_api(test_client):
     assert isinstance(data["geojson"], dict)
     assert "type" in data["geojson"]
     assert data["geojson"]["type"] == "FeatureCollection"
-    # assert data["geojson"] == {
-    #     "features": [
-    #         {
-    #             "geometry": {"coordinates": [-0.0938, 51.4739], "type": "Point"},
-    #             "properties": {
-    #                 "class": "a",
-    #                 "title": "Camberwell Green, London, Greater London, England, United Kingdom",
-    #             },
-    #             "type": "Feature",
-    #         },
-    #         {
-    #             "geometry": {"coordinates": [145.071, -37.835], "type": "Point"},
-    #             "properties": {
-    #                 "class": "b",
-    #                 "title": "Camberwell, Victoria, Australia",
-    #             },
-    #             "type": "Feature",
-    #         },
-    #         {
-    #             "geometry": {"coordinates": [179.9062, -51.4739], "type": "Point"},
-    #             "properties": {
-    #                 "class": "antipode-a",
-    #                 "title": "Antipode of Camberwell Green, London, Greater London, England, United Kingdom",
-    #             },
-    #             "type": "Feature",
-    #         },
-    #     ],
-    #     "type": "FeatureCollection",
-    # }
+    assert "features" in data["geojson"]
+    assert isinstance(data["geojson"]["features"], list)
+
+    features = data["geojson"]["features"]
+    assert len(features) == 3
+    assert {
+        "geometry": {
+            "coordinates": [float(i) for i in location_a_coords.split(",")],
+            "type": "Point",
+        },
+        "properties": {"class": "a", "title": location_a_name,},
+        "type": "Feature",
+    } in features
+
+    assert {
+        "geometry": {
+            "coordinates": [float(i) for i in location_b_coords.split(",")],
+            "type": "Point",
+        },
+        "properties": {"class": "b", "title": location_b_name},
+        "type": "Feature",
+    } in features
+
+    assert {
+        "geometry": {
+            "coordinates": anti_a_coords,
+            "type": "Point",
+        },
+        "properties": {
+            "class": "antipode-a",
+            "title": f"Antipode of {location_a_name}",
+        },
+        "type": "Feature",
+    } in features
 
 
 def test_page_hits_api(test_client):
