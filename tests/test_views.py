@@ -1,18 +1,21 @@
 from antipodal.utils import record_calculation
 from antipodal.utils import Location
+import pytest
 
 
+@pytest.mark.tryfirst
 def test_home_view(test_client):
     response = test_client.get("/")
     assert response.status_code == 200
-    assert b"Wardell's Antipode Namesake Coefficient" in response.data
+    data = response.data.decode()
+
+    assert "Wardell's Antipode Namesake Coefficient" in data
 
 
+@pytest.mark.tryfirst
 def test_results_view(test_client):
     response = test_client.get("/results")
     assert response.status_code == 200
-    print(response.data)
-
     data = response.data.decode()
 
     # check web page features

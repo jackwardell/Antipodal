@@ -90,43 +90,48 @@ def test_calculate_api(test_client):
     features = data["geojson"]["features"]
     assert len(features) == 3
     assert {
-        "geometry": {
-            "coordinates": [float(i) for i in location_a_coords.split(",")],
-            "type": "Point",
-        },
-        "properties": {"class": "a", "title": location_a_name,},
-        "type": "Feature",
-    } in features
+               "geometry": {
+                   "coordinates": [float(i) for i in location_a_coords.split(",")],
+                   "type": "Point",
+               },
+               "properties": {"class": "a", "title": location_a_name},
+               "type": "Feature",
+           } in features
 
     assert {
-        "geometry": {
-            "coordinates": [float(i) for i in location_b_coords.split(",")],
-            "type": "Point",
-        },
-        "properties": {"class": "b", "title": location_b_name},
-        "type": "Feature",
-    } in features
+               "geometry": {
+                   "coordinates": [float(i) for i in location_b_coords.split(",")],
+                   "type": "Point",
+               },
+               "properties": {"class": "b", "title": location_b_name},
+               "type": "Feature",
+           } in features
 
     assert {
-        "geometry": {
-            "coordinates": anti_a_coords,
-            "type": "Point",
-        },
-        "properties": {
-            "class": "antipode-a",
-            "title": f"Antipode of {location_a_name}",
-        },
-        "type": "Feature",
-    } in features
+               "geometry": {"coordinates": anti_a_coords, "type": "Point"},
+               "properties": {
+                   "class": "antipode-a",
+                   "title": f"Antipode of {location_a_name}",
+               },
+               "type": "Feature",
+           } in features
 
 
 def test_page_hits_api(test_client):
+    # hit index
+    test_client.get("/")
+
+    # testing api
     response = test_client.get("/api/page-hits")
     assert response.status_code == 200
     data = json.loads(response.data.decode())
     assert data
     assert isinstance(data, list)
-    print(data)
+    assert len(data) == 1
+    assert isinstance(data[0], dict)
+    assert data[0]["id"] == 1
+    assert data[0]["ip_address"] == "127.0.0.1"
+    assert data[0]["url"] == "/"
 
 
 def test_antipode_coefficient_calculations_api(test_client):
@@ -135,4 +140,4 @@ def test_antipode_coefficient_calculations_api(test_client):
     data = json.loads(response.data.decode())
     assert data
     assert isinstance(data, list)
-    print(data)
+    assert len(data) == 1

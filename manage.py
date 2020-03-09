@@ -11,7 +11,7 @@ psql = Command("psql")
 
 @cli.command()
 def test():
-    pytest.main(args=["tests/"])
+    pytest.main(args=["tests/", "--pdb"])
 
 
 @cli.command()
