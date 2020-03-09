@@ -72,7 +72,36 @@ def test_calculate_api(test_client):
     assert isinstance(data, dict)
     assert "antipode coefficient" in data
     assert "geojson" in data
-    assert "antipode coefficient" == 0.8451353577287053
+    assert data["antipode coefficient"] == 0.8451
+    assert data["geojson"] == {
+        "features": [
+            {
+                "geometry": {"coordinates": [-0.0938, 51.4739], "type": "Point"},
+                "properties": {
+                    "class": "a",
+                    "title": "Camberwell Green, London, Greater London, England, United Kingdom",
+                },
+                "type": "Feature",
+            },
+            {
+                "geometry": {"coordinates": [145.071, -37.835], "type": "Point"},
+                "properties": {
+                    "class": "b",
+                    "title": "Camberwell, Victoria, Australia",
+                },
+                "type": "Feature",
+            },
+            {
+                "geometry": {"coordinates": [179.9062, -51.4739], "type": "Point"},
+                "properties": {
+                    "class": "antipode-a",
+                    "title": "Antipode of Camberwell Green, London, Greater London, England, United Kingdom",
+                },
+                "type": "Feature",
+            },
+        ],
+        "type": "FeatureCollection",
+    }
 
 
 def test_page_hits_api(test_client):
