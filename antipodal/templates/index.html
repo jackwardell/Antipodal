@@ -9,31 +9,16 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet"/>
 
     <style>
-        .marker-a {
+        #marker-a {
             background-image: url('{{ url_for('static', filename='img/A.png') }}');
-            background-size: cover;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
         }
 
-        .marker-b {
+        #marker-b {
             background-image: url('{{ url_for('static', filename='img/B.png') }}');
-            background-size: cover;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
         }
 
-        .marker-antipode-a {
+        #marker-antipode-a {
             background-image: url('{{ url_for('static', filename='img/antiA.png') }}');
-            background-size: cover;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
         }
     </style>
 
@@ -65,9 +50,17 @@
                                 <label for="address">Location A:</label>
                                 <select type="text" class="form-control auto-complete" id="location_a" name="location_a" placeholder="e.g. Camberwell, London" required="" autocomplete="off"></select>
                             </div>
-                            <div class="mb-5">
+                            <div class="mb-3">
                                 <label for="address2">Location B:</label>
                                 <select type="text" class="form-control auto-complete" id="location_b" name="location_b" placeholder="e.g. Camberwell, Melbourne" required=""></select>
+                            </div>
+                            <div class="form-group mb-5">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="is_namesake">
+                                    <label class="form-check-label" for="is_namesake">
+                                        Is B the namesake of A?
+                                    </label>
+                                </div>
                             </div>
 
                             <div class="text-center">
@@ -115,30 +108,34 @@
             $("#submit_locations").on("click", function () {
                 if ($("#location_a").val().length !== 0 && $("#location_b").val().length !== 0) {
 
-                    var location_coordinate_query_string = "location_a_coordinates" + "=" + $("[name='location_a']").val() + "&" + "location_b_coordinates" + "=" + $("[name='location_b']").val();
-                    var location_name_query_string = "location_a_name" + "=" + $("[name='location_a_text']").val() + "&" + "location_b_name" + "=" + $("[name='location_b_text']").val();
-                    var calculate_url = "{{ url_for('api.calculate') }}" + "?" + location_coordinate_query_string;
-                    var geojson_url = "{{ url_for('api.geojson_point') }}" + "?" + location_coordinate_query_string + "&" + location_name_query_string;
+                    $.get("{{ url_for('api.calculate') }}",
+                        {
+                            "location_a_coordinates": $("[name='location_a']").val(),
+                            "location_b_coordinates": $("[name='location_b']").val(),
+                            "location_a_name": $("[name='location_a_text']").val(),
+                            "location_b_name": $("[name='location_b_text']").val(),
+                            "is_namesake": $('#is_namesake').prop("checked"),
+                        },
+                        function (data) {
+                            $("#antipode_coefficient").html(data["antipode coefficient"]);
+                            $("#antipode_coefficient_percent").html(Math.round(data["antipode coefficient"] * 100));
 
-                    $.get(calculate_url, function (coefficient_data) {
-                        $("#antipode_coefficient").html(coefficient_data["antipode coefficient"]);
-                        $("#antipode_coefficient_percent").html(Math.round(coefficient_data["antipode coefficient"] * 100))
-                    });
+                            data.geojson.features.forEach(function (marker) {
 
-                    $.get(geojson_url, function (geojson_data) {
-                        geojson_data.features.forEach(function (marker) {
+                                var el = document.createElement('div');
+                                el.className = 'marker';
+                                el.id = 'marker' + '-' + marker.properties.class;
 
-                            var el = document.createElement('div');
-                            el.className = 'marker' + '-' + marker.properties.class;
+                                new mapboxgl.Marker(el)
+                                    .setLngLat(marker.geometry.coordinates)
+                                    .setPopup(new mapboxgl.Popup({offset: 25})
+                                        .setHTML('<h5>' + marker.properties.title + '</h5>'))
+                                    .addTo(map);
+                            });
 
-                            new mapboxgl.Marker(el)
-                                .setLngLat(marker.geometry.coordinates)
-                                .setPopup(new mapboxgl.Popup({offset: 25})
-                                    .setHTML('<h5>' + marker.properties.title + '</h5>'))
-                                .addTo(map);
+                            $("#is_namesake").prop("checked", false)
                         });
 
-                    })
                 } else {
                     $("#antipode_coefficient").html("N/A");
                 }

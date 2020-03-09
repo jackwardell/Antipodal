@@ -1,17 +1,15 @@
 import os
 from functools import wraps
 
-from flask import Flask
 from flask import request
 from geojson import Feature
 from geojson import LineString
 from geojson import Point
 from mapbox import Geocoder
 
+from .models import AntipodeCoefficientCalculation
 from .models import PageHit
 from .models import db
-
-app = Flask(__name__)
 
 MAPBOX_API_ACCESS_TOKEN = os.getenv("MAPBOX_API_ACCESS_TOKEN")
 
@@ -26,15 +24,25 @@ location_types = [
     "poi",
 ]
 
+# pep 8 uncompliant assigned lambda
 sign = lambda x: -1 if x < 0 else (1 if x > 0 else 0)
 
 
 def gen_linestring_feature(location_a, location_b):
+    """used to gen a geojson linestring"""
     linestring = LineString([location_a.to_geojson(), location_b.to_geojson()])
     return Feature(geometry=linestring)
 
 
 class Location:
+    """
+    used to encapsulate all required data for locations in this tool
+
+    a location is a place with a lat and long coord, and potentially a name
+    can be used to transfer into geojson with extra properties.
+
+    """
+
     def __init__(self, latitude, longitude, name=None):
         try:
             self.latitude = float(latitude)
@@ -104,6 +112,7 @@ class Location:
 
 def page_hit(fn):
     """decorator to record values to page hit table"""
+
     @wraps(fn)
     def wrapper(*args, **kwargs):
         db.session.add(
@@ -118,3 +127,25 @@ def page_hit(fn):
         return fn(*args, **kwargs)
 
     return wrapper
+
+
+def record_calculation(
+    *, location_a: Location, location_b: Location, is_namesake: bool, antipode_coefficient: float
+):
+    """adapter func to record data to db"""
+    ip_address = request.environ.get(
+        "HTTP_X_FORWARDED_FOR", request.environ["REMOTE_ADDR"]
+    )
+    calculation = AntipodeCoefficientCalculation(
+        ip_address=ip_address,
+        is_namesake=is_namesake,
+        name_a=location_a.name,
+        latitude_a=location_a.latitude,
+        longitude_a=location_a.longitude,
+        name_b=location_b.name,
+        latitude_b=location_b.latitude,
+        longitude_b=location_b.longitude,
+        antipode_coefficient=antipode_coefficient
+    )
+    db.session.add(calculation)
+    db.session.commit()
