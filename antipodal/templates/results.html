@@ -27,8 +27,16 @@
 
         <section>
             <div>
-                <table id="results_table">
-
+                <table class="table table-bordered" id="results_table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Datetime</th>
+                        <th scope="col">Location A</th>
+                        <th scope="col">Location B</th>
+                        <th scope="col">Is Namesake?</th>
+                        <th scope="col">Antipode Coefficient</th>
+                    </tr>
+                    </thead>
                 </table>
             </div>
         </section>
@@ -38,7 +46,9 @@
 
     <script>
         $(document).ready(function () {
-            $('#results_table').DataTable();
+            $('#results_table').DataTable({
+                "ajax": '{{ url_for("api.antipode_coefficient_calculations") }}?for_table=true&fields=timestamp,name_a,name_b,is_namesake,antipode_coefficient&shorten=true'
+            });
         });
     </script>
 {% endblock %}

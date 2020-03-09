@@ -21,7 +21,7 @@ class PageHit(db.Model):
             "id": self.id,
             "timestamp": self.timestamp,
             "ip_address": self.ip_address,
-            "url": self.url
+            "url": self.url,
         }
         return data
 
@@ -30,7 +30,9 @@ class AntipodeCoefficientCalculation(db.Model):
     __tablename__ = "antipode_coefficient_calculation"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, index=True)
-    timestamp = db.Column(db.DateTime, server_default=sql.func.now(), nullable=False, index=True)
+    timestamp = db.Column(
+        db.DateTime, server_default=sql.func.now(), nullable=False, index=True
+    )
     ip_address = db.Column(db.String)
 
     name_a = db.Column(db.String, nullable=False, index=True)
@@ -48,17 +50,35 @@ class AntipodeCoefficientCalculation(db.Model):
     def calc_time(self):
         return self.timestamp.strftime("%H:%M:%S %Y-%m-%d")
 
-    def to_dict(self):
-        data = {
+    def shorten_name(self, attr_name, upto=3):
+        return ", ".join(getattr(self, attr_name).split(",")[0:upto])
+
+    @property
+    def location_a_name(self):
+        return self.shorten_name("name_a")
+
+    @property
+    def location_b_name(self):
+        return self.shorten_name("name_b")
+
+    def to_dict(self, fields="all", shorten=False):
+        _data = {
             "id": self.id,
-            "timestamp": self.timestamp,
+            "timestamp": self.calc_time,
             "ip_address": self.ip_address,
-            "name_a": self.name_a,
+            "name_a": self.name_a if not shorten else self.location_a_name,
             "latitude_a": self.latitude_a,
             "longitude_a": self.longitude_a,
-            "name_b": self.name_b,
+            "name_b": self.name_b if not shorten else self.location_b_name,
             "latitude_b": self.latitude_b,
+            "longitude_b": self.latitude_b,
             "is_namesake": self.is_namesake,
             "antipode_coefficient": self.antipode_coefficient
+            if not shorten
+            else round(self.antipode_coefficient, 4),
         }
+        # if fields != "all":
+        #     assert isinstance(fields, list)
+        # assert fields in
+        data = {i: _data[i] for i in fields} if fields != "all" else _data
         return data

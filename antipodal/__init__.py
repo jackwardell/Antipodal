@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_migrate import Migrate
 
@@ -6,6 +8,8 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
 
     from .models import db
     from .apis import api

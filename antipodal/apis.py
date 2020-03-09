@@ -45,7 +45,7 @@ def calculate():
 
     is_namesake = request.args.get("is_namesake") == "true"
 
-    if not all((coordinates_a, coordinates_b, name_a, name_b, is_namesake)):
+    if not all((coordinates_a, coordinates_b, name_a, name_b)):
         abort(400)
     else:
         a = Location.from_mapbox(coordinates_a, name=name_a)
@@ -87,4 +87,26 @@ def page_hits():
 
 @api.route("/antipode-coefficient-calculations")
 def antipode_coefficient_calculations():
-    return jsonify([i.to_dict() for i in AntipodeCoefficientCalculation.query.all()])
+    _fields = request.args.get("fields")
+    fields = _fields.split(",") if (_fields and _fields != "all") else "all"
+    for_table = request.args.get("for_table") == "true"
+    shorten = request.args.get("shorten") == "true"
+
+    if for_table:
+        return jsonify(
+            {
+                "data": [
+                    list(i.to_dict(fields=fields, shorten=shorten).values())
+                    for i in AntipodeCoefficientCalculation.query.all()
+                ]
+            }
+        )
+    elif not for_table:
+        return jsonify(
+            [
+                i.to_dict(fields=fields, shorten=shorten)
+                for i in AntipodeCoefficientCalculation.query.all()
+            ]
+        )
+    else:
+        abort(400)

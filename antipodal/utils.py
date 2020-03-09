@@ -130,7 +130,12 @@ def page_hit(fn):
 
 
 def record_calculation(
-    *, location_a: Location, location_b: Location, is_namesake: bool, antipode_coefficient: float):
+    *,
+    location_a: Location,
+    location_b: Location,
+    is_namesake: bool,
+    antipode_coefficient: float,
+):
     """adapter func to record data to db"""
     ip_address = request.environ.get(
         "HTTP_X_FORWARDED_FOR", request.environ["REMOTE_ADDR"]
@@ -144,7 +149,7 @@ def record_calculation(
         name_b=location_b.name,
         latitude_b=location_b.latitude,
         longitude_b=location_b.longitude,
-        antipode_coefficient=antipode_coefficient
+        antipode_coefficient=antipode_coefficient,
     )
     db.session.add(calculation)
     db.session.commit()

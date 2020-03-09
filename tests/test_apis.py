@@ -8,9 +8,11 @@ latitude_a = -37.835
 location_a_coords = f"{longitude_a},{latitude_a}"
 
 location_b_name = "Camberwell, Victoria, Australia"
-longitude_a = -0.0938
-latitude_a = 51.4739
-location_b_coords = f"{longitude_a},{latitude_a}"
+longitude_b = -0.0938
+latitude_b = 51.4739
+location_b_coords = f"{longitude_b},{latitude_b}"
+
+anti_a_coords = [-34.929, 37.835]
 
 
 def test_location_api(test_client):
@@ -21,15 +23,6 @@ def test_location_api(test_client):
 def test_calculate_api(test_client):
     response = test_client.get("/api/calculate")
     assert response.status_code == 400
-
-    # query data
-    location_a_name = (
-        "Camberwell Green, London, Greater London, England, United Kingdom"
-    )
-    location_a_coords = "145.071,-37.835"
-    location_b_name = "Camberwell, Victoria, Australia"
-    location_b_coords = "-0.0938,51.4739"
-    anti_a_coords = [-34.929, 37.835]
 
     # incorrect queries
     response = test_client.get(
@@ -156,7 +149,20 @@ def test_antipode_coefficient_calculations_api(test_client):
     assert len(data) == 1
 
     calc = data[0]
+    assert len(calc) == 11
     assert isinstance(calc, dict)
     assert calc["id"] == 1
     assert calc["ip_address"] == "127.0.0.1"
+
+    # a
     assert calc["name_a"] == location_a_name
+    assert calc["latitude_a"] == latitude_a
+    assert calc["longitude_a"] == longitude_a
+
+    # b
+    assert calc["name_b"] == location_b_name
+    assert calc["latitude_b"] == latitude_b
+    assert calc["longitude_b"] == longitude_b
+
+    assert calc["is_namesake"] == True
+    assert calc["antipode_coefficient"] == 0.8451353577287053

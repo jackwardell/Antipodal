@@ -23,7 +23,7 @@ def test_results_view(test_client):
     assert "The Results" in data
 
     # check for table features
-    assert '<table id="results_table">' in data
+    assert '<table class="table table-bordered" id="results_table">' in data
     assert "</table>" in data
     # check data tables installed
     assert "dataTables.bootstrap4.min.js" in data
