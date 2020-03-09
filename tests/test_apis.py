@@ -68,12 +68,18 @@ def test_calculate_api(test_client):
         "&is_namesake=true"
     )
     assert response.status_code == 200
+
     data = json.loads(response.data.decode())
     assert data
     assert isinstance(data, dict)
+
     assert "antipode coefficient" in data
-    assert "geojson" in data
     assert data["antipode coefficient"] == 0.8451
+
+    assert "geojson" in data
+    assert isinstance(data["geojson"], dict)
+    assert "type" in data["geojson"]
+    assert data["geojson"]["type"] == "FeatureCollection"
     # assert data["geojson"] == {
     #     "features": [
     #         {
