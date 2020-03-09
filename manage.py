@@ -7,10 +7,27 @@ from antipodal import create_app
 cli = FlaskGroup(create_app=create_app)
 
 psql = Command("psql")
+git = Command("git")
+
+
+@cli.command(name="gac")
+@click.argument("message")
+def git_add_and_commit(message):
+    exit_code = pytest.main(args=["tests/"])
+    if exit_code != 0:
+        click.echo("# ************************************************* #")
+        prompt = click.prompt("tests failed: do you want to continue? (y)es OR any other key for no")
+        if prompt.lower() not in ("yes", "y"):
+            return
+        else:
+            click.echo("commit with test failures")
+    else:
+        git.with_trailing_args("commit", "-am", message).run()
 
 
 @cli.command()
 def test():
+    """use to test things"""
     pytest.main(args=["tests/", "--pdb"])
 
 
@@ -19,7 +36,6 @@ def test():
 def setup(what):
     """
     use to set things up
-
     :param what: db
     """
     if what == "db":
@@ -36,7 +52,6 @@ def setup(what):
 def drop(what):
     """
     use to drop things
-
     :param what: db
     """
     if what == "db":

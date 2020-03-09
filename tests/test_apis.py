@@ -1,6 +1,17 @@
 import json
 from flask.helpers import url_quote
 
+# location data
+location_a_name = "Camberwell Green, London, Greater London, England, United Kingdom"
+longitude_a = 145.071
+latitude_a = -37.835
+location_a_coords = f"{longitude_a},{latitude_a}"
+
+location_b_name = "Camberwell, Victoria, Australia"
+longitude_a = -0.0938
+latitude_a = 51.4739
+location_b_coords = f"{longitude_a},{latitude_a}"
+
 
 def test_location_api(test_client):
     response = test_client.get("/api/location")
@@ -90,31 +101,31 @@ def test_calculate_api(test_client):
     features = data["geojson"]["features"]
     assert len(features) == 3
     assert {
-               "geometry": {
-                   "coordinates": [float(i) for i in location_a_coords.split(",")],
-                   "type": "Point",
-               },
-               "properties": {"class": "a", "title": location_a_name},
-               "type": "Feature",
-           } in features
+        "geometry": {
+            "coordinates": [float(i) for i in location_a_coords.split(",")],
+            "type": "Point",
+        },
+        "properties": {"class": "a", "title": location_a_name},
+        "type": "Feature",
+    } in features
 
     assert {
-               "geometry": {
-                   "coordinates": [float(i) for i in location_b_coords.split(",")],
-                   "type": "Point",
-               },
-               "properties": {"class": "b", "title": location_b_name},
-               "type": "Feature",
-           } in features
+        "geometry": {
+            "coordinates": [float(i) for i in location_b_coords.split(",")],
+            "type": "Point",
+        },
+        "properties": {"class": "b", "title": location_b_name},
+        "type": "Feature",
+    } in features
 
     assert {
-               "geometry": {"coordinates": anti_a_coords, "type": "Point"},
-               "properties": {
-                   "class": "antipode-a",
-                   "title": f"Antipode of {location_a_name}",
-               },
-               "type": "Feature",
-           } in features
+        "geometry": {"coordinates": anti_a_coords, "type": "Point"},
+        "properties": {
+            "class": "antipode-a",
+            "title": f"Antipode of {location_a_name}",
+        },
+        "type": "Feature",
+    } in features
 
 
 def test_page_hits_api(test_client):
@@ -143,3 +154,6 @@ def test_antipode_coefficient_calculations_api(test_client):
     assert data
     assert isinstance(data, list)
     assert len(data) == 1
+    assert isinstance(data[0], dict)
+    assert data[0]["id"] == 1
+    assert data[0]["ip_address"] == "127.0.0.1"
