@@ -20,7 +20,7 @@ def git_add_and_commit(message):
         if prompt.lower() not in ("yes", "y"):
             return
         else:
-            click.echo("commit with test failures")
+            click.echo("commiting with test failures")
     else:
         git.with_trailing_args("commit", "-am", message).run()
 

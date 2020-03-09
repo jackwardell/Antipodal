@@ -154,6 +154,9 @@ def test_antipode_coefficient_calculations_api(test_client):
     assert data
     assert isinstance(data, list)
     assert len(data) == 1
-    assert isinstance(data[0], dict)
-    assert data[0]["id"] == 1
-    assert data[0]["ip_address"] == "127.0.0.1"
+
+    calc = data[0]
+    assert isinstance(calc, dict)
+    assert calc["id"] == 1
+    assert calc["ip_address"] == "127.0.0.1"
+    assert calc["name_a"] == location_a_name
