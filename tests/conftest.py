@@ -1,6 +1,7 @@
 import pytest
 from antipodal import create_app
 from antipodal.models import db
+from antipodal.utils import record_calculation,Location
 
 
 @pytest.fixture(scope='module')

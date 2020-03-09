@@ -25,9 +25,9 @@
         </div>
 
 
-        <section id="results_table">
+        <section>
             <div>
-                <table>
+                <table id="results_table">
 
                 </table>
             </div>
@@ -35,4 +35,10 @@
 
 
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#results_table').DataTable();
+        });
+    </script>
 {% endblock %}

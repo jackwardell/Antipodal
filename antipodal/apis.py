@@ -9,6 +9,8 @@ from .utils import Location
 from .utils import location_types
 from .utils import mapbox_geocoder
 from .utils import record_calculation
+from .models import PageHit
+from .models import AntipodeCoefficientCalculation
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
@@ -76,3 +78,13 @@ def calculate():
                 ),
             }
         )
+
+
+@api.route("/page-hits")
+def page_hits():
+    return jsonify([i.to_dict() for i in PageHit.query.all()])
+
+
+@api.route("/antipode-coefficient-calculations")
+def antipode_coefficient_calculations():
+    return jsonify([i.to_dict() for i in AntipodeCoefficientCalculation.query.all()])

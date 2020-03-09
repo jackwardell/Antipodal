@@ -16,6 +16,15 @@ class PageHit(db.Model):
     def hit_date(self):
         return self.timestamp.strftime("%d %b %Y")
 
+    def to_dict(self):
+        data = {
+            "id": self.id,
+            "timestamp": self.timestamp,
+            "ip_address": self.ip_address,
+            "url": self.url
+        }
+        return data
+
 
 class AntipodeCoefficientCalculation(db.Model):
     __tablename__ = "antipode_coefficient_calculation"
@@ -38,3 +47,18 @@ class AntipodeCoefficientCalculation(db.Model):
     @property
     def calc_time(self):
         return self.timestamp.strftime("%H:%M:%S %Y-%m-%d")
+
+    def to_dict(self):
+        data = {
+            "id": self.id,
+            "timestamp": self.timestamp,
+            "ip_address": self.ip_address,
+            "name_a": self.name_a,
+            "latitude_a": self.latitude_a,
+            "longitude_a": self.longitude_a,
+            "name_b": self.name_b,
+            "latitude_b": self.latitude_b,
+            "is_namesake": self.is_namesake,
+            "antipode_coefficient": self.antipode_coefficient
+        }
+        return data
