@@ -4,20 +4,28 @@
     Antipode Coefficient Results
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+{% endblock %}
+
 {% block body %}
     <div class="container">
 
         <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark" style="background-image: url('{{ url_for("static", filename="img/antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
             <div class="col-md-6 px-0">
                 <h1 class="display-4 font-italic">The Results</h1>
-{#                <p class="lead my-3">If you take two locations, A & B, how close is the B to the antipode A? Or simply, what percentage of the way to the other side of the Earth, is B from A?</p>#}
+                {#                <p class="lead my-3">If you take two locations, A & B, how close is the B to the antipode A? Or simply, what percentage of the way to the other side of the Earth, is B from A?</p>#}
                 {#                    <li>how close is a location, B, to the antipode of A?</li> <li>How close is a location, B, to the antipode of A, if B is the namesake of A?</li></ul>#}
-{#                <p class="lead mb-0"><a href="#calculate" class="font-weight-bold btn-outline-dark">Calculate</a></p>#}
+                {#                <p class="lead mb-0"><a href="#calculate" class="font-weight-bold btn-outline-dark">Calculate</a></p>#}
             </div>
         </div>
 
 
-        <section id="results">
+        <section id="results_table">
             <div>
                 <table>
 
