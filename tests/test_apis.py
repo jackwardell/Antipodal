@@ -124,6 +124,7 @@ def test_page_hits_api(test_client):
     # testing api
     response = test_client.get("/api/page-hits")
     assert response.status_code == 200
+
     data = json.loads(response.data.decode())
     assert data
     assert isinstance(data, list)
@@ -137,6 +138,7 @@ def test_page_hits_api(test_client):
 def test_antipode_coefficient_calculations_api(test_client):
     response = test_client.get("/api/antipode-coefficient-calculations")
     assert response.status_code == 200
+
     data = json.loads(response.data.decode())
     assert data
     assert isinstance(data, list)
