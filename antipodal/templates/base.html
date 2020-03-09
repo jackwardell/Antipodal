@@ -13,8 +13,8 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mapbox.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?{{ range(1, 1000) | random }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mapbox.css') }}?{{ range(1, 1000) | random }}">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 
 
@@ -53,14 +53,14 @@
 
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
-            {#                        <a class="p-2 text-muted" href="#">Home</a>#}
+            <a class="p-2 text-muted" href="{{ url_for("views.home") }}">Home</a>
             {#            <a class="p-2 text-muted" href="#">Calculate</a>#}
             {#            <a class="p-2 text-muted" href="#">About</a>#}
             {#            <a class="p-2 text-muted" href="#">The Idea</a>#}
-            {#            <a class="p-2 text-muted" href="#">The Results</a>#}
-            {#            <a class="p-2 text-muted" href="#">Github</a>#}
+            <a class="p-2 text-muted" href="{{ url_for("views.results") }}">The Results</a>
+            <a class="p-2 text-muted" target="_blank" href="https://github.com/jackwardell/Antipodal">Github</a>
             {#            <a class="p-2 text-muted" href="#">Camberwell</a>#}
-            {#            <a class="p-2 text-muted" href="#">Contact Me</a>#}
+            <a class="p-2 text-muted" target="_blank" href="mailto:jackwardell@me.com">Contact Me</a>
             {#            <a class="p-2 text-muted" href="#">Opinion</a>#}
             {#            <a class="p-2 text-muted" href="#">Science</a>#}
             {#            <a class="p-2 text-muted" href="#">Health</a>#}
@@ -76,7 +76,7 @@
 <!-- Footer -->
 <footer class="py-2 bg-light">
     <div class="container">
-        <p class="m-0 text-center ">Copyright &copy; Jack Wardell, WANC</p>
+        <p class="m-0 text-center ">Copyright &copy; Jack Wardell, www.antipodecoefficient.com, www.wanc.co.uk, WANC</p>
     </div>
 </footer>
 </body>

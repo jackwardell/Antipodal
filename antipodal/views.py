@@ -9,3 +9,9 @@ view = Blueprint("views", __name__)
 @page_hit
 def home():
     return render_template("index.html")
+
+
+@view.route("/results")
+@page_hit
+def results():
+    return render_template("results.html")

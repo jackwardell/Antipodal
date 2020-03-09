@@ -74,19 +74,19 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.h-500 {
+.h-600 {
     height: 500px;
 }
 
 @media (min-width: 768px) {
-    .h-md-250 {
-        height: 500px;
+    .h-md-650 {
+        min-height: 650px;
     }
 }
 
-.title-box {
-    height: 600px;
-}
+/*.title-box {*/
+    /*height: 650px;*/
+/*}*/
 
 /* Pagination */
 .blog-pagination {
