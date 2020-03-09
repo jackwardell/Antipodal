@@ -17,14 +17,19 @@ api = Blueprint("api", __name__, url_prefix="/api")
 def location():
     """endpoint for autocompleting location search"""
     location_name = request.args.get("q")
-    query = mapbox_geocoder.forward(location_name, types=location_types, limit=5)
-    results = query.json()["features"]
-    return jsonify(
-        [
-            {"text": i["place_name"], "value": i["geometry"]["coordinates"]}
-            for i in results
-        ]
-    )
+
+    if not location_name:
+        abort(400)
+
+    else:
+        query = mapbox_geocoder.forward(location_name, types=location_types, limit=5)
+        results = query.json()["features"]
+        return jsonify(
+            [
+                {"text": i["place_name"], "value": i["geometry"]["coordinates"]}
+                for i in results
+            ]
+        )
 
 
 @api.route("/calculate")
@@ -39,7 +44,7 @@ def calculate():
     is_namesake = request.args.get("is_namesake") == "true"
 
     if not all((coordinates_a, coordinates_b, name_a, name_b, is_namesake)):
-        abort(404)
+        abort(400)
     else:
         a = Location.from_mapbox(coordinates_a, name=name_a)
         b = Location.from_mapbox(coordinates_b, name=name_b)

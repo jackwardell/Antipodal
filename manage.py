@@ -1,12 +1,17 @@
 import click
 from commandlib import Command
 from flask.cli import FlaskGroup
-
+import pytest
 from antipodal import create_app
 
 cli = FlaskGroup(create_app=create_app)
 
 psql = Command("psql")
+
+
+@cli.command()
+def test():
+    pytest.main(args=["tests/"])
 
 
 @cli.command()

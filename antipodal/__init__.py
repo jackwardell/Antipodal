@@ -1,15 +1,16 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 
-# db = SQLAlchemy()
 migrate = Migrate()
 
 
-def create_app():
+def create_app(testing: bool = False):
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+    if not testing:
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory"
 
     from .models import db
     from .apis import api
