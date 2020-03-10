@@ -57,6 +57,8 @@ def test_calculate_api(test_client):
         "&is_namesake=true"
     )
     assert response.status_code == 400
+
+    # correct query
     response = test_client.get(
         "/api/calculate"
         f"?location_a_coordinates={url_quote(location_a_coords)}"
@@ -64,7 +66,7 @@ def test_calculate_api(test_client):
         f"&location_a_name={url_quote(location_a_name)}"
         f"&location_b_name={url_quote(location_b_name)}"
     )
-    assert response.status_code == 400
+    assert response.status_code == 200
 
     # correct query
     response = test_client.get(

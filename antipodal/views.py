@@ -17,7 +17,7 @@ def results():
     return render_template("results.html")
 
 
-@view.route("/credits")
+@view.route("/thanks_to")
 @page_hit
-def credits():
-    return render_template("credits.html")
+def thanks_to():
+    return render_template("thanks_to.html")
