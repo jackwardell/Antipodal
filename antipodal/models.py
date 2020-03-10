@@ -48,7 +48,7 @@ class AntipodeCoefficientCalculation(db.Model):
 
     @property
     def calc_time(self):
-        return self.timestamp.strftime("%H:%M:%S %Y-%m-%d")
+        return self.timestamp.strftime("%Y-%m-%d")
 
     def shorten_name(self, attr_name):
         places = getattr(self, attr_name).split(",")

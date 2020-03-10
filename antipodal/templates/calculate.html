@@ -76,7 +76,8 @@
                             <div class="text-center">
                                 <h5 class="card-text"><i>Antipode Coefficient:</i> <span id="antipode_coefficient">N/A</span></h5>
                                 <p class="text-muted mt-3"><i>OR</i></p>
-                                <p class="mb-5">Location B is <span id="antipode_coefficient_percent">N/A</span>% towards the opposite side of the Earth from Location A</p>
+                                <p class="mb-5">Location B is <span id="antipode_coefficient_percent">N/A</span>% across the world from Location A</p>
+                                <p id="result_appended" style="display: none">Result appended to <a href="{{ url_for('views.results') }}">results</a></p>
                             </div>
                             <button class="btn btn-primary btn" id="submit_locations" type="submit"><span class="h5">Submit!</span></button>
 
@@ -153,7 +154,8 @@
                                 current_markers.push(new_marker)
                             });
 
-                            $("#is_namesake").prop("checked", false)
+                            $("#is_namesake").prop("checked", false);
+                            $("#result_appended").show()
                         });
 
                 } else {
