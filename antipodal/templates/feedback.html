@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Antipode Coefficient Results
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark" style="background-image: url('{{ url_for("static", filename="img/antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 font-italic">Feedback</h1>
+                <p class="lead my-3">
+                    I believe feedback is important and the only way to co-design a good product.
+                    Please help me by leaving honest feedback, reviews, feature suggestions, and bugs you've found!
+                </p>
+                <p class="lead mb-0"><a href="#leave_feedback" class="font-weight-bold btn-outline-dark">Leave feedback</a></p>
+                <p class="lead mb-0"><a href="#see_feedback" class="font-weight-bold btn-outline-dark">See feedback</a></p>
+            </div>
+        </div>
+
+
+        <section class="mb-5" id="leave_feedback">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title h3">Fill out below to leave some feedback or suggest a feature, etc</div>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+
+                        <div class="form-group">
+                            <label for="input_name">Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="input_name" name="input_name" placeholder="e.g. anonymous" required>
+                        </div>
+                        <p>If you want a response please add contact details below, they're kept private</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="input_email_address">Email address</label>
+                                <input type="email" class="form-control" id="input_email_address" name="input_email_address" placeholder="e.g. hello@world.com" maxlength="128">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="input_instagram_handle">Instagram handle</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">@</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="input_instagram_handle" name="input_instagram_handle" placeholder="e.g. helloworld" maxlength="128">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="input_twitter_handle">Twitter handle</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">@</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="input_twitter_handle" name="input_twitter_handle" placeholder="e.g. helloworld" maxlength="128">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedback_input">Feedback <span class="text-danger">*</span></label>
+                            <textarea type="text" class="form-control" id="input_feedback" name="input_feedback" placeholder="e.g. what a waste of space" rows="3" maxlength="10000" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5" id="see_feedback">
+            <div class="col-12">
+                <table class="table table-bordered" id="results_table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Feedback</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#results_table').DataTable({
+                "ajax": {
+                    url: '{{ url_for("api.feedbacks") }}',
+                    method: 'GET',
+                    data: {
+                        "for_table": "true",
+                        "fields": "timestamp,name,feedback",
+                    }
+                },
+            });
+        });
+    </script>
+{% endblock %}

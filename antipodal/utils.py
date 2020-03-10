@@ -9,6 +9,8 @@ from mapbox import Geocoder
 
 from .models import AntipodeCoefficientCalculation
 from .models import PageHit
+from .models import Feedback
+
 from .models import db
 
 MAPBOX_API_ACCESS_TOKEN = os.getenv("MAPBOX_API_ACCESS_TOKEN")
@@ -26,6 +28,10 @@ location_types = [
 
 # pep 8 uncompliant assigned lambda
 sign = lambda x: -1 if x < 0 else (1 if x > 0 else 0)
+
+
+def get_ip_address():
+    return request.environ.get("HTTP_X_FORWARDED_FOR", request.environ["REMOTE_ADDR"])
 
 
 def gen_linestring_feature(location_a, location_b):
@@ -115,14 +121,7 @@ def page_hit(fn):
 
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        db.session.add(
-            PageHit(
-                ip_address=request.environ.get(
-                    "HTTP_X_FORWARDED_FOR", request.environ["REMOTE_ADDR"]
-                ),
-                url=request.path,
-            )
-        )
+        db.session.add(PageHit(ip_address=get_ip_address(), url=request.path,))
         db.session.commit()
         return fn(*args, **kwargs)
 
@@ -137,11 +136,8 @@ def record_calculation(
     antipode_coefficient: float,
 ):
     """adapter func to record data to db"""
-    ip_address = request.environ.get(
-        "HTTP_X_FORWARDED_FOR", request.environ["REMOTE_ADDR"]
-    )
     calculation = AntipodeCoefficientCalculation(
-        ip_address=ip_address,
+        ip_address=get_ip_address(),
         is_namesake=is_namesake,
         name_a=location_a.name,
         latitude_a=location_a.latitude,
@@ -152,4 +148,18 @@ def record_calculation(
         antipode_coefficient=antipode_coefficient,
     )
     db.session.add(calculation)
+    db.session.commit()
+
+
+def record_feedback(*, name, email_address, instagram_handle, twitter_handle, feedback):
+    """adapter func to record feedback to db"""
+    feedback_record = Feedback(
+        ip_address=get_ip_address(),
+        name=name,
+        email_address=email_address,
+        instagram_handle=instagram_handle,
+        twitter_handle=twitter_handle,
+        feedback=feedback,
+    )
+    db.session.add(feedback_record)
     db.session.commit()

@@ -87,3 +87,34 @@ class AntipodeCoefficientCalculation(db.Model):
         # assert fields in
         data = {i: _data[i] for i in fields} if fields != "all" else _data
         return data
+
+
+class Feedback(db.Model):
+    __tablename__ = "feedback"
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True, index=True)
+    timestamp = db.Column(db.DateTime, server_default=sql.func.now(), nullable=False, index=True)
+    ip_address = db.Column(db.String)
+
+    name = db.Column(db.String, nullable=False, index=True)
+
+    email_address = db.Column(db.String, nullable=True)
+    instagram_handle = db.Column(db.String, nullable=True)
+    twitter_handle = db.Column(db.String, nullable=True)
+
+    feedback = db.Column(db.Text, nullable=False)
+
+    @property
+    def feedback_date(self):
+        return self.timestamp.strftime("%Y-%m-%d")
+
+    def to_dict(self, fields="all"):
+        _data = {
+            "id": self.id,
+            "timestamp": self.feedback_date,
+            "ip_address": self.ip_address,
+            "name": self.name,
+            "feedback": self.feedback
+        }
+        data = {i: _data[i] for i in fields} if fields != "all" else _data
+        return data

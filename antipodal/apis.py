@@ -10,6 +10,7 @@ from .utils import location_types
 from .utils import mapbox_geocoder
 from .utils import record_calculation
 from .models import PageHit
+from .models import Feedback
 from .models import AntipodeCoefficientCalculation
 
 api = Blueprint("api", __name__, url_prefix="/api")
@@ -106,6 +107,31 @@ def antipode_coefficient_calculations():
             [
                 i.to_dict(fields=fields, shorten=shorten)
                 for i in AntipodeCoefficientCalculation.query.all()
+            ]
+        )
+    else:
+        abort(400)
+
+
+@api.route("feedback")
+def feedbacks():
+    _fields = request.args.get("fields")
+    fields = _fields.split(",") if (_fields and _fields != "all") else "all"
+    for_table = request.args.get("for_table") == "true"
+    if for_table:
+        return jsonify(
+            {
+                "data": [
+                    list(i.to_dict(fields=fields).values())
+                    for i in Feedback.query.all()
+                ]
+            }
+        )
+    elif not for_table:
+        return jsonify(
+            [
+                i.to_dict(fields=fields)
+                for i in Feedback.query.all()
             ]
         )
     else:
