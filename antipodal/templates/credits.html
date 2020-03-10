@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Antipode Coefficient Results
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container mb-5">
+
+        <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark mb-5">
+            <div class="col-md-6 px-0 mb-3">
+                <h1 class="display-4 font-italic text-white">Thanks to:</h1>
+            </div>
+            <ul class="text-white font-italic">
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://www.python.org/">Python</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://getbootstrap.com/">Bootstrap</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://twitter.com/mdo">mdo's theme</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://www.mapbox.com/">Mapbox</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://github.com/jackwardell/Antipodal">Github</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://www.heroku.com/">Heroku</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://maketext.io/">maketext.io</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://flask.palletsprojects.com/">Flask</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://www.reddit.com/r/MapPorn/comments/20gtef/you_cant_dig_a_straight_tunnel_through_the_earth/">This Antipode Map</a></li>
+                <li class="my-2 h5"><a class="text-white" target="_blank" href="https://www.jetbrains.com/pycharm/">PyCharm</a></li>
+
+                <li class="my-2 h5">JQuery</li>
+                <li class="my-2 h5">Bootstrap Autcomplete</li>
+                <li class="my-2 h5">DataTables</li>
+
+                <li class="my-2 h5">psycopg2</li>
+                <li class="my-2 h5">SQLAlchemy</li>
+                <li class="my-2 h5">Flask-SQLAlchemy</li>
+                <li class="my-2 h5">Alembic</li>
+                <li class="my-2 h5">Flask-Migrate</li>
+                <li class="my-2 h5">geojson</li>
+                <li class="my-2 h5">geopy</li>
+                <li class="my-2 h5">gunicorn</li>
+                <li class="my-2 h5">commandlib</li>
+                <li class="my-2 h5">Click</li>
+                <li class="my-2 h5">pytest</li>
+
+            </ul>
+        </div>
+
+
+    </div>
+
+{% endblock %}

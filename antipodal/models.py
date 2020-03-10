@@ -50,8 +50,13 @@ class AntipodeCoefficientCalculation(db.Model):
     def calc_time(self):
         return self.timestamp.strftime("%H:%M:%S %Y-%m-%d")
 
-    def shorten_name(self, attr_name, upto=3):
-        return ", ".join(getattr(self, attr_name).split(",")[0:upto])
+    def shorten_name(self, attr_name):
+        places = getattr(self, attr_name).split(",")
+        if len(places) > 3:
+            shorter_name = places[0:2] + [places[-1]]
+            return ", ".join(shorter_name)
+        else:
+            return ", ".join(places)
 
     @property
     def location_a_name(self):

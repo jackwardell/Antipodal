@@ -15,3 +15,9 @@ def home():
 @page_hit
 def results():
     return render_template("results.html")
+
+
+@view.route("/credits")
+@page_hit
+def credits():
+    return render_template("credits.html")

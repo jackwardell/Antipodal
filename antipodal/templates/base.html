@@ -55,7 +55,7 @@
         <nav class="nav d-flex justify-content-between">
             <a class="p-2 text-muted" href="{{ url_for("views.home") }}">Calculate</a>
             {#            <a class="p-2 text-muted" href="#">Calculate</a>#}
-            {#            <a class="p-2 text-muted" href="#">About</a>#}
+                        <a class="p-2 text-muted" href="#">About</a>
             {#            <a class="p-2 text-muted" href="#">The Idea</a>#}
             <a class="p-2 text-muted" href="{{ url_for("views.results") }}">The Results</a>
             <a class="p-2 text-muted" target="_blank" href="https://github.com/jackwardell/Antipodal">Github</a>
@@ -65,10 +65,10 @@
             {#            <a class="p-2 text-muted" href="#">Science</a>#}
             {#            <a class="p-2 text-muted" href="#">Health</a>#}
             {#            <a class="p-2 text-muted" href="#">Style</a>#}
-            {#            <a class="p-2 text-muted" href="#">Travel</a>#}
+            <a class="p-2 text-muted" href="{{ url_for("views.credits") }}">Thanks to</a>
         </nav>
-    </div>
 
+    </div>
     {% block body %}
     {% endblock %}
 </div>

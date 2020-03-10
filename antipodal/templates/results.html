@@ -15,14 +15,11 @@
 {% block body %}
     <div class="container">
 
-        <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark" style="background-image: url('{{ url_for("static", filename="img/antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
-            <div class="col-md-6 px-0">
-                <h1 class="display-4 font-italic">The Results</h1>
-                {#                <p class="lead my-3">If you take two locations, A & B, how close is the B to the antipode A? Or simply, what percentage of the way to the other side of the Earth, is B from A?</p>#}
-                {#                    <li>how close is a location, B, to the antipode of A?</li> <li>How close is a location, B, to the antipode of A, if B is the namesake of A?</li></ul>#}
-                {#                <p class="lead mb-0"><a href="#calculate" class="font-weight-bold btn-outline-dark">Calculate</a></p>#}
+{#        <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark">#}
+            <div class="col-md-6 px-0 mb-5">
+                <h1 class="display-4 font-italic ">The Results</h1>
             </div>
-        </div>
+{#        </div>#}
 
 
         <section>
@@ -44,10 +41,30 @@
 
     </div>
 
+    {#    '{{ url_for("api.antipode_coefficient_calculations") }}?for_table=true&fields=timestamp,name_a,name_b,is_namesake,antipode_coefficient&shorten=true'#}
+
+
     <script>
         $(document).ready(function () {
             $('#results_table').DataTable({
-                "ajax": '{{ url_for("api.antipode_coefficient_calculations") }}?for_table=true&fields=timestamp,name_a,name_b,is_namesake,antipode_coefficient&shorten=true'
+                "ajax": {
+                    url: '{{ url_for("api.antipode_coefficient_calculations") }}',
+                    method: 'GET',
+                    data: {
+                        "for_table": "true",
+                        "fields": "timestamp,name_a,name_b,is_namesake,antipode_coefficient",
+                        "shorten": "true"
+                    }
+                },
+                "createdRow": function (row, data, index) {
+                    console.log(row);
+                    console.log(data);
+                    console.log(index);
+                    if (data[3] === true) {
+                        console.log(data[3]);
+                        $(row).addClass("table-success");
+                    }
+                }
             });
         });
     </script>
