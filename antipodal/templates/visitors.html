@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Antipode Coefficient Results
+{% endblock %}
+
+{% block head %}
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet"/>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="jumbotron p-4 p-md-5 text-dark rounded bg-dark" style="background-image: url('{{ url_for("static", filename="img/antipode_map.png") }}'); background-repeat: no-repeat; background-position: center; background-size: cover; background-attachment: fixed;">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 font-italic">Visitors</h1>
+            </div>
+        </div>
+
+
+        <section class="mb-5">
+            <div class="card">
+                <div class="card-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3dhcmRlbGwiLCJhIjoiY2s3OHFhM2FrMGw3MjNlcDZ1dXRjbDVrbSJ9.kVVllFJ8ZVNBSGv7z0wLow';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            zoom: -1,
+        });
+    </script>
+{% endblock %}

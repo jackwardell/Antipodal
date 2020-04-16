@@ -9,6 +9,7 @@ from .utils import Location
 from .utils import location_types
 from .utils import mapbox_geocoder
 from .utils import record_calculation
+from .utils import ipinfo_handler
 from .models import PageHit
 from .models import Feedback
 from .models import AntipodeCoefficientCalculation
@@ -113,7 +114,7 @@ def antipode_coefficient_calculations():
         abort(400)
 
 
-@api.route("feedback")
+@api.route("/feedback")
 def feedbacks():
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
@@ -128,11 +129,21 @@ def feedbacks():
             }
         )
     elif not for_table:
-        return jsonify(
-            [
-                i.to_dict(fields=fields)
-                for i in Feedback.query.all()
-            ]
-        )
+        return jsonify([i.to_dict(fields=fields) for i in Feedback.query.all()])
     else:
         abort(400)
+
+
+@api.route("/page-hits/ip-addresses")
+def page_hits_ip_addresses():
+    all_page_hits = [i.to_dict() for i in PageHit.query.all()]
+    coords = [
+        [
+            float(j)
+            for j in ipinfo_handler.getDetails(i["ip_address"])
+            .details["loc"]
+            .split(",")[::-1]
+        ]
+        for i in all_page_hits
+    ]
+    return jsonify(coords)

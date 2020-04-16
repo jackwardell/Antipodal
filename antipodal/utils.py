@@ -6,7 +6,7 @@ from geojson import Feature
 from geojson import LineString
 from geojson import Point
 from mapbox import Geocoder
-
+import ipinfo
 from .models import AntipodeCoefficientCalculation
 from .models import PageHit
 from .models import Feedback
@@ -14,8 +14,12 @@ from .models import Feedback
 from .models import db
 
 MAPBOX_API_ACCESS_TOKEN = os.getenv("MAPBOX_API_ACCESS_TOKEN")
+IPINFO_API_ACCESS_TOKEN = os.getenv("IPINFO_API_ACCESS_TOKEN")
 
 mapbox_geocoder = Geocoder(access_token=MAPBOX_API_ACCESS_TOKEN)
+
+ipinfo_handler = ipinfo.getHandler(access_token=IPINFO_API_ACCESS_TOKEN)
+
 location_types = [
     "country",
     "region",

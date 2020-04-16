@@ -38,3 +38,9 @@ def feedback():
             feedback=request.form.get("input_feedback"),
         )
     return render_template("feedback.html")
+
+
+@view.route("/visitors")
+@page_hit
+def visitors():
+    return render_template("visitors.html")

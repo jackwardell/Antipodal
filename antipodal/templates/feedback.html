@@ -30,9 +30,9 @@
 
         <section class="mb-5" id="leave_feedback">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title h3">Fill out below to leave some feedback or suggest a feature, etc</div>
-                </div>
+                {#                <div class="card-header bg-white">#}
+                {#                    <div class="card-title h3">Fill out below to leave some feedback or suggest a feature, etc</div>#}
+                {#                </div>#}
                 <div class="card-body">
                     <form method="post">
 
@@ -81,17 +81,19 @@
         </section>
 
         <section class="mb-5" id="see_feedback">
-            <div class="card border-0">
-                <div class="card-body">
-                    <table class="table table-bordered" id="results_table">
-                        <thead>
-                        <tr>
-                            <th scope="col" style="width: 10%">Date</th>
-                            <th scope="col" style="width: 10%">Name</th>
-                            <th scope="col" style="width: 80%">Feedback</th>
-                        </tr>
-                        </thead>
-                    </table>
+            <div class="container-fluid p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" id="results_table" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Feedback</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
