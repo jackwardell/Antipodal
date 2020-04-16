@@ -134,16 +134,16 @@ def feedbacks():
         abort(400)
 
 
-@api.route("/page-hits/ip-addresses")
-def page_hits_ip_addresses():
-    all_page_hits = [i.to_dict() for i in PageHit.query.all()]
-    coords = [
-        [
-            float(j)
-            for j in ipinfo_handler.getDetails(i["ip_address"])
-            .details["loc"]
-            .split(",")[::-1]
-        ]
-        for i in all_page_hits
-    ]
-    return jsonify(coords)
+# @api.route("/page-hits/ip-addresses")
+# def page_hits_ip_addresses():
+#     all_page_hits = [i.to_dict() for i in PageHit.query.all()]
+#     coords = [
+#         [
+#             float(j)
+#             for j in ipinfo_handler.getDetails(i["ip_address"])
+#             .details["loc"]
+#             .split(",")[::-1]
+#         ]
+#         for i in all_page_hits
+#     ]
+#     return jsonify(coords)
