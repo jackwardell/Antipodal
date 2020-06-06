@@ -1,18 +1,17 @@
-from flask import Blueprint
 from flask import abort
+from flask import Blueprint
 from flask import jsonify
 from flask import request
 from geojson import FeatureCollection
 from geopy.distance import distance
 
+from .models import AntipodeCoefficientCalculation
+from .models import Feedback
+from .models import PageHit
 from .utils import Location
 from .utils import location_types
 from .utils import mapbox_geocoder
 from .utils import record_calculation
-from .utils import ipinfo_handler
-from .models import PageHit
-from .models import Feedback
-from .models import AntipodeCoefficientCalculation
 
 api = Blueprint("api", __name__, url_prefix="/api")
 

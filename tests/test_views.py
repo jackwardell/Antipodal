@@ -1,6 +1,7 @@
-from antipodal.utils import record_calculation
-from antipodal.utils import Location
 import pytest
+
+from antipodal.utils import Location
+from antipodal.utils import record_calculation
 
 
 @pytest.mark.tryfirst

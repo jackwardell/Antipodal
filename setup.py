@@ -1,11 +1,12 @@
-from setuptools import find_packages
-from setuptools import setup
 import os
 from pathlib import Path
 
+from setuptools import find_packages
+from setuptools import setup
+
 REQUIREMENTS = Path(os.path.dirname(os.path.realpath(__file__))) / "requirements.txt"
 
-with open(REQUIREMENTS, 'r') as f:
+with open(REQUIREMENTS) as f:
     requirements = f.readlines()
 
 setup(

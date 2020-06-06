@@ -1,4 +1,5 @@
 import json
+
 from flask.helpers import url_quote
 
 # location data

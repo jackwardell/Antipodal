@@ -1,7 +1,8 @@
 import click
+import pytest
 from commandlib import Command
 from flask.cli import FlaskGroup
-import pytest
+
 from antipodal import create_app
 
 cli = FlaskGroup(create_app=create_app)
@@ -16,7 +17,9 @@ def git_add_and_commit(message):
     exit_code = pytest.main(args=["tests/"])
     if exit_code != 0:
         click.echo("# ************************************************* #")
-        prompt = click.prompt("tests failed: do you want to continue? (y)es OR any other key for no")
+        prompt = click.prompt(
+            "tests failed: do you want to continue? (y)es OR any other key for no"
+        )
         if prompt.lower() not in ("yes", "y"):
             return
         else:

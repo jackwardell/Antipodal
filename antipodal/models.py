@@ -93,7 +93,9 @@ class Feedback(db.Model):
     __tablename__ = "feedback"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True, index=True)
-    timestamp = db.Column(db.DateTime, server_default=sql.func.now(), nullable=False, index=True)
+    timestamp = db.Column(
+        db.DateTime, server_default=sql.func.now(), nullable=False, index=True
+    )
     ip_address = db.Column(db.String)
 
     name = db.Column(db.String, nullable=False, index=True)
@@ -114,7 +116,7 @@ class Feedback(db.Model):
             "timestamp": self.feedback_date,
             "ip_address": self.ip_address,
             "name": self.name,
-            "feedback": self.feedback
+            "feedback": self.feedback,
         }
         data = {i: _data[i] for i in fields} if fields != "all" else _data
         return data

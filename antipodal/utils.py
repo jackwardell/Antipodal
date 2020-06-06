@@ -1,17 +1,17 @@
 import os
 from functools import wraps
 
+import ipinfo
 from flask import request
 from geojson import Feature
 from geojson import LineString
 from geojson import Point
 from mapbox import Geocoder
-import ipinfo
-from .models import AntipodeCoefficientCalculation
-from .models import PageHit
-from .models import Feedback
 
+from .models import AntipodeCoefficientCalculation
 from .models import db
+from .models import Feedback
+from .models import PageHit
 
 MAPBOX_API_ACCESS_TOKEN = os.getenv("MAPBOX_API_ACCESS_TOKEN")
 IPINFO_API_ACCESS_TOKEN = os.getenv("IPINFO_API_ACCESS_TOKEN")

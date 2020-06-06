@@ -1,8 +1,9 @@
 from flask import Blueprint
 from flask import render_template
 from flask import request
-from .utils import page_hit
+
 from .models import Feedback
+from .utils import page_hit
 from .utils import record_feedback
 
 view = Blueprint("views", __name__)
