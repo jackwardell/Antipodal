@@ -11,7 +11,7 @@ location_a_coords = f"{longitude_a},{latitude_a}"
 location_b_name = "Camberwell, Victoria, Australia"
 longitude_b = -0.0938
 latitude_b = 51.4739
-location_b_coords = f"{longitude_b},{latitude_b}"
+location_b_coords = f"{longitude_b}, {latitude_b}"
 
 anti_a_coords = [-34.929, 37.835]
 
@@ -167,5 +167,5 @@ def test_antipode_coefficient_calculations_api(test_client):
     assert calc["latitude_b"] == latitude_b
     assert calc["longitude_b"] == longitude_b
 
-    assert calc["is_namesake"] == True
+    assert calc["is_namesake"] is True
     assert calc["antipode_coefficient"] == 0.8451353577287053

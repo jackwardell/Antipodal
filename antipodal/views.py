@@ -2,7 +2,6 @@ from flask import Blueprint
 from flask import render_template
 from flask import request
 
-from .models import Feedback
 from .utils import page_hit
 from .utils import record_feedback
 

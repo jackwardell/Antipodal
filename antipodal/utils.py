@@ -30,8 +30,9 @@ location_types = [
     "poi",
 ]
 
-# pep 8 uncompliant assigned lambda
-sign = lambda x: -1 if x < 0 else (1 if x > 0 else 0)
+
+def sign(x):
+    return -1 if x < 0 else (1 if x > 0 else 0)
 
 
 def get_ip_address():
@@ -70,7 +71,7 @@ class Location:
             self.longitude = float(longitude)
         except ValueError:
             raise ValueError(
-                "longitude must be a float " "or must be able to be cast into a float"
+                "longitude must be a float or must be able to be cast into a float"
             )
         assert (
             -180.0 <= self.longitude <= 180.0
@@ -125,7 +126,12 @@ def page_hit(fn):
 
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        db.session.add(PageHit(ip_address=get_ip_address(), url=request.path,))
+        db.session.add(
+            PageHit(
+                ip_address=get_ip_address(),
+                url=request.path,
+            )
+        )
         db.session.commit()
         return fn(*args, **kwargs)
 

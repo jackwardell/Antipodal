@@ -58,8 +58,8 @@ def drop(what):
     :param what: db
     """
     if what == "db":
-        psql(f"--command=DROP DATABASE antipodal").run()
-        psql(f"--command=DROP USER antipodal").run()
+        psql("--command=DROP DATABASE antipodal").run()
+        psql("--command=DROP USER antipodal").run()
     else:
         click.echo("No such thing to drop")
 

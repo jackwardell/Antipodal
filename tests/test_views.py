@@ -1,8 +1,5 @@
 import pytest
 
-from antipodal.utils import Location
-from antipodal.utils import record_calculation
-
 
 @pytest.mark.tryfirst
 def test_home_view(test_client):
