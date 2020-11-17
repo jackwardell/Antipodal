@@ -93,6 +93,7 @@ def antipode_coefficient_calculations():
     for_table = request.args.get("for_table") == "true"
     shorten = request.args.get("shorten") == "true"
 
+    # todo simplify, datatables can now change arg 'data'
     if for_table:
         return jsonify(
             {

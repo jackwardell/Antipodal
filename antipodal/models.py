@@ -76,7 +76,7 @@ class AntipodeCoefficientCalculation(db.Model):
             "longitude_a": self.longitude_a,
             "name_b": self.name_b if not shorten else self.location_b_name,
             "latitude_b": self.latitude_b,
-            "longitude_b": self.latitude_b,
+            "longitude_b": self.longitude_b,
             "is_namesake": self.is_namesake,
             "antipode_coefficient": self.antipode_coefficient
             if not shorten

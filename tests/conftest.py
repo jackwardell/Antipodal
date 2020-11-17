@@ -7,7 +7,7 @@ from antipodal import create_app
 from antipodal.models import db
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def test_client():
     flask_app = create_app()
     testing_client = flask_app.test_client()
