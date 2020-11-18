@@ -7,9 +7,8 @@ from geopy.distance import distance
 
 from .models import AntipodeCoefficientCalculation
 from .models import Feedback
+from .utils import get_features
 from .utils import Location
-from .utils import location_types
-from .utils import mapbox_geocoder
 from .utils import record_calculation
 
 # from .models import PageHit
@@ -26,12 +25,11 @@ def location():
         abort(400)
 
     else:
-        query = mapbox_geocoder.forward(location_name, types=location_types, limit=5)
-        results = query.json()["features"]
+        features = get_features(location_name)
         return jsonify(
             [
                 {"text": i["place_name"], "value": i["geometry"]["coordinates"]}
-                for i in results
+                for i in features
             ]
         )
 

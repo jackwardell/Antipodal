@@ -1,4 +1,5 @@
 import os
+from functools import partial
 from functools import wraps
 
 import ipinfo
@@ -29,6 +30,13 @@ location_types = [
     "neighborhood",
     "poi",
 ]
+
+geocoder_forward = partial(mapbox_geocoder.forward, types=location_types, limit=5)
+
+
+def get_features(location_name):
+    query = geocoder_forward(location_name)
+    return query.json()["features"]
 
 
 def sign(x):
