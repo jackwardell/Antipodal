@@ -30,6 +30,13 @@
 
         <section class="mb-5" id="leave_feedback">
             <div class="card">
+
+                {% for field, errors in form.errors.items() %}
+                    <div class="alert alert-danger">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                    </div>
+                {% endfor %}
+
                 <div class="card-body">
                     <form method="post">
                         <div class="form-group">

@@ -21,7 +21,7 @@ def results():
     return render_template("results.html")
 
 
-@view.route("/thanks_to")
+@view.route("/thanks-to")
 @page_hit
 def thanks_to():
     return render_template("thanks_to.html")
