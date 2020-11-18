@@ -1,6 +1,8 @@
 from flask import Blueprint
+from flask import redirect
 from flask import render_template
 from flask import request
+from flask import url_for
 
 from .forms import FeedbackForm
 from .utils import page_hit
@@ -33,6 +35,7 @@ def feedback():
     form = FeedbackForm(request.form)
     if request.method == "POST" and form.validate_on_submit():
         record_feedback(**form.params)
+        return redirect(url_for("views.feedback"))
     return render_template("feedback.html", form=form)
 
 
