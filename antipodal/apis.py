@@ -90,48 +90,47 @@ def page_hits():
 def antipode_coefficient_calculations():
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
-    for_table = request.args.get("for_table") == "true"
+    # for_table = request.args.get("for_table") == "true"
     shorten = request.args.get("shorten") == "true"
 
     # todo simplify, datatables can now change arg 'data'
-    if for_table:
-        return jsonify(
-            {
-                "data": [
-                    list(i.to_dict(fields=fields, shorten=shorten).values())
-                    for i in AntipodeCoefficientCalculation.query.all()
-                ]
-            }
-        )
-    elif not for_table:
-        return jsonify(
-            [
+    # if for_table:
+    return jsonify(
+        {
+            "data": [
                 i.to_dict(fields=fields, shorten=shorten)
                 for i in AntipodeCoefficientCalculation.query.all()
             ]
-        )
-    else:
-        abort(400)
+        }
+    )
+    # elif not for_table:
+    #     return jsonify(
+    #         [
+    #             i.to_dict(fields=fields, shorten=shorten)
+    #             for i in AntipodeCoefficientCalculation.query.all()
+    #         ]
+    #     )
+    # else:
+    #     abort(400)
 
 
 @api.route("/feedback")
 def feedbacks():
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
-    for_table = request.args.get("for_table") == "true"
-    if for_table:
-        return jsonify(
-            {
-                "data": [
-                    list(i.to_dict(fields=fields).values())
-                    for i in Feedback.query.all()
-                ]
-            }
-        )
-    elif not for_table:
-        return jsonify([i.to_dict(fields=fields) for i in Feedback.query.all()])
-    else:
-        abort(400)
+    # for_table = request.args.get("for_table") == "true"
+    # if for_table:
+    return jsonify(
+        {
+            "data": [
+                list(i.to_dict(fields=fields).values()) for i in Feedback.query.all()
+            ]
+        }
+    )
+    # elif not for_table:
+    #     return jsonify([i.to_dict(fields=fields) for i in Feedback.query.all()])
+    # else:
+    #     abort(400)
 
 
 # @api.route("/page-hits/ip-addresses")

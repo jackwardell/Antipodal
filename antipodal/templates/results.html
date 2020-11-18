@@ -53,15 +53,22 @@
                     url: '{{ url_for("api.antipode_coefficient_calculations") }}',
                     method: 'GET',
                     data: {
-                        "for_table": "true",
+                        {#"for_table": "true",#}
                         "fields": "timestamp,name_a,name_b,is_namesake,antipode_coefficient",
                         "shorten": "true"
-                    }
+                    },
                 },
+                "columns": [
+                    {"data": "timestamp"},
+                    {"data": "name_a"},
+                    {"data": "name_b"},
+                    {"data": "is_namesake"},
+                    {"data": "antipode_coefficient"},
+                ],
                 "createdRow": function (row, data, index) {
                     console.log(row);
-                    console.log(data);
-                    console.log(index);
+                    {#console.log(data[3]);#}
+                    {#console.log(index);#}
                     if (data[3] === true) {
                         console.log(data[3]);
                         $(row).addClass("table-success");
