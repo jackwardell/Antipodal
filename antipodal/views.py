@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import request
 
+from .forms import FeedbackForm
 from .utils import page_hit
 from .utils import record_feedback
 
@@ -29,15 +30,10 @@ def thanks_to():
 @view.route("/feedback", methods=["GET", "POST"])
 @page_hit
 def feedback():
+    form = FeedbackForm(request.form)
     if request.method == "POST":
-        record_feedback(
-            name=request.form.get("input_name"),
-            email_address=request.form.get("input_email_address"),
-            instagram_handle=request.form.get("input_instagram_handle"),
-            twitter_handle=request.form.get("input_twitter_handle"),
-            feedback=request.form.get("input_feedback"),
-        )
-    return render_template("feedback.html")
+        record_feedback(**form.params)
+    return render_template("feedback.html", form=form)
 
 
 # @view.route("/visitors")

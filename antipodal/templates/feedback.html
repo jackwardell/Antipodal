@@ -35,45 +35,59 @@
                 {#                </div>#}
                 <div class="card-body">
                     <form method="post">
+                        <div class="form-group">
+                            {{ form.csrf_token }}
+                        </div>
 
                         <div class="form-group">
-                            <label for="input_name">Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="input_name" name="input_name" placeholder="e.g. anonymous" required>
+                            {{ form.name.label }}: <span class="text-danger">*</span>
+                            {{ form.name(class="form-control", placeholder="e.g. anonymous") }}
+                            {#                            <label for="input_name">Name <span class="text-danger">*</span></label>#}
+                            {#                            <input type="text" class="form-control" id="input_name" name="input_name" placeholder="e.g. anonymous" required>#}
                         </div>
                         <p>If you want a response please add contact details below, they're kept private</p>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="input_email_address">Email address</label>
-                                <input type="email" class="form-control" id="input_email_address" name="input_email_address" placeholder="e.g. hello@world.com" maxlength="128">
+                                {{ form.email_address.label }}: <span class="text-danger">*</span>
+                                {{ form.email_address(class="form-control", placeholder="e.g. hello@world.com") }}
+                                {#                                <label for="input_email_address">Email address</label>#}
+                                {#                                <input type="email" class="form-control" id="input_email_address" name="input_email_address" placeholder="e.g. hello@world.com" maxlength="128">#}
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="input_instagram_handle">Instagram handle</label>
+                                {{ form.instagram_handle.label }}
+                                {#                                <label for="input_instagram_handle">Instagram handle</label>#}
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">@</div>
                                     </div>
-                                    <input type="text" class="form-control" id="input_instagram_handle" name="input_instagram_handle" placeholder="e.g. helloworld" maxlength="128">
+                                    {{ form.instagram_handle(class="form-control", placeholder="e.g. helloworld") }}
+                                    {#                                    <input type="text" class="form-control" id="input_instagram_handle" name="input_instagram_handle" placeholder="e.g. helloworld" maxlength="128">#}
                                 </div>
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="input_twitter_handle">Twitter handle</label>
+                                {{ form.twitter_handle.label }}
+                                {#                                <label for="input_twitter_handle">Twitter handle</label>#}
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">@</div>
                                     </div>
-                                    <input type="text" class="form-control" id="input_twitter_handle" name="input_twitter_handle" placeholder="e.g. helloworld" maxlength="128">
+                                    {{ form.twitter_handle(class="form-control", placeholder="e.g. helloworld") }}
+                                    {#                                    <input type="text" class="form-control" id="input_twitter_handle" name="input_twitter_handle" placeholder="e.g. helloworld" maxlength="128">#}
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="feedback_input">Feedback <span class="text-danger">*</span></label>
-                            <textarea type="text" class="form-control" id="input_feedback" name="input_feedback" placeholder="e.g. what a waste of space" rows="3" maxlength="10000" required></textarea>
+                            {{ form.feedback.label }}: <span class="text-danger">*</span>
+                            {{ form.feedback(class="form-control", placeholder="e.g. what a waste of space", rows="3") }}
+{#                            <label for="feedback_input">Feedback <span class="text-danger">*</span></label>#}
+{#                            <textarea type="text" class="form-control" id="input_feedback" name="input_feedback" placeholder="e.g. what a waste of space" rows="3" maxlength="10000" required></textarea>#}
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+{#                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>#}
                         </div>
                     </form>
                 </div>
