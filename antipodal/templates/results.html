@@ -65,12 +65,8 @@
                     {"data": "is_namesake"},
                     {"data": "antipode_coefficient"},
                 ],
-                "createdRow": function (row, data, index) {
-                    console.log(row);
-                    {#console.log(data[3]);#}
-                    {#console.log(index);#}
-                    if (data[3] === true) {
-                        console.log(data[3]);
+                "createdRow": function (row, data) {
+                    if (data['is_namesake'] === true) {
                         $(row).addClass("table-success");
                     }
                 }
