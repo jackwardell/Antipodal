@@ -31,7 +31,7 @@ def thanks_to():
 @page_hit
 def feedback():
     form = FeedbackForm(request.form)
-    if request.method == "POST":
+    if request.method == "POST" and form.validate_on_submit():
         record_feedback(**form.params)
     return render_template("feedback.html", form=form)
 

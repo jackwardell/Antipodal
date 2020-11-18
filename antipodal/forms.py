@@ -8,11 +8,13 @@ from wtforms.validators import Length
 
 
 class FeedbackForm(FlaskForm):
-    name = StringField("Name", validators=[InputRequired()])
-    email_address = StringField("Email Address", validators=[Length(min=3, max=128)])
+    name = StringField("Name", validators=[InputRequired(), Length(min=1, max=128)])
+    email_address = StringField("Email Address")
     instagram_handle = StringField("Instagram Handle")
     twitter_handle = StringField("Twitter Handle")
-    feedback = TextAreaField("Feedback", validators=[InputRequired()])
+    feedback = TextAreaField(
+        "Feedback", validators=[InputRequired(), Length(min=1, max=2048)]
+    )
     recaptcha = RecaptchaField("reCAPTCHA")
     submit = SubmitField("Submit")
 
