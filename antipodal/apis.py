@@ -80,11 +80,6 @@ def calculate():
         )
 
 
-# @api.route("/page-hits")
-# def page_hit():
-#     return jsonify([i.to_dict() for i in PageHit.query.all()])
-
-
 @api.route("/antipode-coefficient-calculations")
 def antipode_coefficient_calculations():
     _fields = request.args.get("fields")
@@ -92,12 +87,10 @@ def antipode_coefficient_calculations():
     shorten = request.args.get("shorten") == "true"
 
     return jsonify(
-        {
-            "data": [
-                i.to_dict(fields=fields, shorten=shorten)
-                for i in AntipodeCoefficientCalculation.query.all()
-            ]
-        }
+        data=[
+            i.to_dict(fields=fields, shorten=shorten)
+            for i in AntipodeCoefficientCalculation.query.all()
+        ]
     )
 
 
@@ -105,8 +98,12 @@ def antipode_coefficient_calculations():
 def feedback():
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
-    return jsonify({"data": [i.to_dict(fields=fields) for i in Feedback.query.all()]})
+    return jsonify(data=[i.to_dict(fields=fields) for i in Feedback.query.all()])
 
+
+# @api.route("/page-hits")
+# def page_hit():
+#     return jsonify([i.to_dict() for i in PageHit.query.all()])
 
 # @api.route("/page-hits/ip-addresses")
 # def page_hits_ip_addresses():

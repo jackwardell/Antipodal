@@ -6,10 +6,8 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
 {% endblock %}
 
 {% block body %}
@@ -20,7 +18,6 @@
                 <h1 class="display-4 font-italic">The Results</h1>
             </div>
         </div>
-
 
         <section class="mb-5">
             <div class="card">
@@ -40,11 +37,7 @@
             </div>
         </section>
 
-
     </div>
-
-    {#    '{{ url_for("api.antipode_coefficient_calculations") }}?for_table=true&fields=timestamp,name_a,name_b,is_namesake,antipode_coefficient&shorten=true'#}
-
 
     <script>
         $(document).ready(function () {
@@ -68,7 +61,8 @@
                     if (data['is_namesake'] === true) {
                         $(row).addClass("table-success");
                     }
-                }
+                },
+                "order": [0, 'desc']
             });
         });
     </script>
