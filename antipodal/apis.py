@@ -7,11 +7,12 @@ from geopy.distance import distance
 
 from .models import AntipodeCoefficientCalculation
 from .models import Feedback
-from .models import PageHit
 from .utils import Location
 from .utils import location_types
 from .utils import mapbox_geocoder
 from .utils import record_calculation
+
+# from .models import PageHit
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
@@ -81,9 +82,9 @@ def calculate():
         )
 
 
-@api.route("/page-hits")
-def page_hits():
-    return jsonify([i.to_dict() for i in PageHit.query.all()])
+# @api.route("/page-hits")
+# def page_hit():
+#     return jsonify([i.to_dict() for i in PageHit.query.all()])
 
 
 @api.route("/antipode-coefficient-calculations")
@@ -103,16 +104,10 @@ def antipode_coefficient_calculations():
 
 
 @api.route("/feedback")
-def feedbacks():
+def feedback():
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
-    return jsonify(
-        {
-            "data": [
-                list(i.to_dict(fields=fields).values()) for i in Feedback.query.all()
-            ]
-        }
-    )
+    return jsonify({"data": [i.to_dict(fields=fields) for i in Feedback.query.all()]})
 
 
 # @api.route("/page-hits/ip-addresses")

@@ -114,12 +114,17 @@
         $(document).ready(function () {
             $('#results_table').DataTable({
                 "ajax": {
-                    url: '{{ url_for("api.feedbacks") }}',
+                    url: '{{ url_for("api.feedback") }}',
                     method: 'GET',
                     data: {
                         "fields": "timestamp,name,feedback",
                     }
                 },
+                "columns": [
+                    {"data": "timestamp"},
+                    {"data": "name"},
+                    {"data": "feedback"},
+                ],
             });
         });
     </script>

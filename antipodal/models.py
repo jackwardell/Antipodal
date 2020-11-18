@@ -20,7 +20,7 @@ class PageHit(db.Model):
         data = {
             "id": self.id,
             "timestamp": self.timestamp,
-            "ip_address": self.ip_address,
+            # "ip_address": self.ip_address,
             "url": self.url,
         }
         return data
@@ -70,7 +70,7 @@ class AntipodeCoefficientCalculation(db.Model):
         _data = {
             "id": self.id,
             "timestamp": self.calc_time,
-            "ip_address": self.ip_address,
+            # "ip_address": self.ip_address,
             "name_a": self.name_a if not shorten else self.location_a_name,
             "latitude_a": self.latitude_a,
             "longitude_a": self.longitude_a,
@@ -82,9 +82,6 @@ class AntipodeCoefficientCalculation(db.Model):
             if not shorten
             else round(self.antipode_coefficient, 4),
         }
-        # if fields != "all":
-        #     assert isinstance(fields, list)
-        # assert fields in
         data = {i: _data[i] for i in fields} if fields != "all" else _data
         return data
 
@@ -97,13 +94,10 @@ class Feedback(db.Model):
         db.DateTime, server_default=sql.func.now(), nullable=False, index=True
     )
     ip_address = db.Column(db.String)
-
     name = db.Column(db.String, nullable=False, index=True)
-
     email_address = db.Column(db.String, nullable=True)
     instagram_handle = db.Column(db.String, nullable=True)
     twitter_handle = db.Column(db.String, nullable=True)
-
     feedback = db.Column(db.Text, nullable=False)
 
     @property
@@ -114,7 +108,7 @@ class Feedback(db.Model):
         _data = {
             "id": self.id,
             "timestamp": self.feedback_date,
-            "ip_address": self.ip_address,
+            # "ip_address": self.ip_address,
             "name": self.name,
             "feedback": self.feedback,
         }
