@@ -1,4 +1,4 @@
-from flask import abort
+from flask import abort, Response
 from flask import Blueprint
 from flask import jsonify
 from flask import request
@@ -17,7 +17,7 @@ api = Blueprint("api", __name__, url_prefix="/api")
 
 
 @api.route("/location")
-def location():
+def location() -> Response:
     """endpoint for autocompleting location search"""
     location_name = request.args.get("q")
 
@@ -35,7 +35,7 @@ def location():
 
 
 @api.route("/calculate")
-def calculate():
+def calculate() -> Response:
     """endpoint to calculate antipode coefficient"""
     coordinates_a = request.args.get("location_a_coordinates")
     coordinates_b = request.args.get("location_b_coordinates")
@@ -81,7 +81,7 @@ def calculate():
 
 
 @api.route("/antipode-coefficient-calculations")
-def antipode_coefficient_calculations():
+def antipode_coefficient_calculations() -> Response:
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
     shorten = request.args.get("shorten") == "true"
@@ -95,7 +95,7 @@ def antipode_coefficient_calculations():
 
 
 @api.route("/feedback")
-def feedback():
+def feedback() -> Response:
     _fields = request.args.get("fields")
     fields = _fields.split(",") if (_fields and _fields != "all") else "all"
     return jsonify(data=[i.to_dict(fields=fields) for i in Feedback.query.all()])

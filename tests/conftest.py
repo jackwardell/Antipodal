@@ -2,13 +2,14 @@ import os
 import tempfile
 
 import pytest
+from flask import Flask
 
 from antipodal import create_app
 from antipodal.models import db
 
 
 @pytest.fixture(scope="function")
-def test_client():
+def test_client() -> Flask:
     flask_app = create_app()
     flask_app.testing = True
     flask_app.secret_key = "testing123"

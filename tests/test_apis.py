@@ -229,12 +229,12 @@ mapbox_return_value = [
 
 
 @pytest.fixture
-def mock_forward():
+def mock_forward() -> None:
     with patch("antipodal.utils.get_features", return_value=mapbox_return_value):
         yield
 
 
-def test_location_api(mock_forward, test_client):
+def test_location_api(mock_forward, test_client) -> None:
     antipode_return_value = [
         {"text": "Camberwell, Victoria, Australia", "value": [145.071, -37.835]},
         {
@@ -262,7 +262,7 @@ def test_location_api(mock_forward, test_client):
     assert response.json == antipode_return_value
 
 
-def test_calculate_api(test_client):
+def test_calculate_api(test_client) -> None:
     response = test_client.get("/api/calculate")
     assert response.status_code == 400
 
@@ -383,7 +383,7 @@ def test_calculate_api(test_client):
 #     assert data[0]["url"] == "/"
 
 
-def test_antipode_coefficient_calculations_api(test_client):
+def test_antipode_coefficient_calculations_api(test_client) -> None:
     # correct query
     response = test_client.get(
         "/api/calculate"

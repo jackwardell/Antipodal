@@ -4,39 +4,24 @@ from commandlib import Command
 from flask.cli import FlaskGroup
 
 from antipodal import create_app
+from dotenv import load_dotenv
 
 cli = FlaskGroup(create_app=create_app)
 
 psql = Command("psql")
-git = Command("git")
 
-
-@cli.command(name="gac")
-@click.argument("message")
-def git_add_and_commit(message):
-    exit_code = pytest.main(args=["tests/"])
-    if exit_code != 0:
-        click.echo("# ************************************************* #")
-        prompt = click.prompt(
-            "tests failed: do you want to continue? (y)es OR any other key for no"
-        )
-        if prompt.lower() not in ("yes", "y"):
-            return
-        else:
-            click.echo("commiting with test failures")
-    else:
-        git.with_trailing_args("commit", "-am", message).run()
+load_dotenv()
 
 
 @cli.command()
-def test():
+def test() -> None:
     """use to test things"""
     pytest.main(args=["tests/", "--pdb"])
 
 
 @cli.command()
 @click.argument("what")
-def setup(what):
+def setup(what) -> None:
     """
     use to set things up
     :param what: db
@@ -52,7 +37,7 @@ def setup(what):
 
 @cli.command()
 @click.argument("what")
-def drop(what):
+def drop(what) -> None:
     """
     use to drop things
     :param what: db

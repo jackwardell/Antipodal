@@ -1,14 +1,14 @@
 # import pytest
 
 
-def test_home_view(test_client):
+def test_home_view(test_client) -> None:
     response = test_client.get("/")
     assert response.status_code == 200
     data = response.data.decode()
     assert "Wardell's Antipode Namesake Coefficient" in data
 
 
-def test_results_view(test_client):
+def test_results_view(test_client) -> None:
     response = test_client.get("/results")
     assert response.status_code == 200
     data = response.data.decode()
@@ -40,17 +40,17 @@ def test_results_view(test_client):
     # )
 
 
-def test_thanks_to_view(test_client):
+def test_thanks_to_view(test_client) -> None:
     response = test_client.get("/thanks-to")
     assert response.status_code == 200
 
 
-def test_feedback_view_get(test_client):
+def test_feedback_view_get(test_client) -> None:
     response = test_client.get("/feedback")
     assert response.status_code == 200
 
 
-def test_feedback_view_post(test_client):
+def test_feedback_view_post(test_client) -> None:
     name, feedback = "hello world", "this app is ok"
     response = test_client.get("/feedback")
     assert name not in response.data.decode()

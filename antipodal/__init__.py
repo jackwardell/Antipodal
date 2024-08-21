@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 migrate = Migrate()
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
     app.testing = False
 
